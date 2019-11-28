@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+.col-appart-modern {
+    background: url('images/theme_urbanpoint_img1.jpg') center no-repeat;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+    display: flex;
+}
+.btn-video {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 70%;
+    display: grid
+}
+.btn-video img {
+    margin: auto;
+    width: 150px;
+    transition: all .4s
+}
+.btn-video img:hover {
+    width: 190px;
+    cursor: pointer;
+    transition: all .4s
+}
+.text-modern-house {
+    text-align: center;
+    width: 100%
+}
+.text-modern-house h1 {
+    color: white;
+    margin-top: 18rem;
+    font-family: 'ubuntu'
+}
+.text-modern-house p {
+    color: white;
+    margin-left: 20rem;
+    margin-right: 20rem;
+    font-size: 17pt;
+}
+h1, h2, h3, h4 {
+    font-family: 'ubuntu' !important
+}
+.col-contact {
+    margin-left: 14rem;
+    margin-right: 14rem;
+    margin-top: 5rem
+}
+.inputwrapper {
+    padding-top: 23px;
+    padding-bottom: 23px;
+    border-radius: 8px;
+}
+.textareawrapper {
+        border-radius: 10px 10px 0 0;
+}
+.btn-contact {
+    padding: 28px;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    background: #00c4a7;
+    font-size: 12pt;
+    color: #fff;
+    font-family: 'ubuntu' !important;
+}
+.btn-contact:hover {
+    background: #14e2c4;
+    cursor: pointer
+}
+.list-items {
+            
+          }
+.col-contact .list-items i {
+font-size: 24px;
+margin-right: 7px;
+color: #00c4a7
+}
+</style>
+    <div class="full-paralax">
+        <div class="child-paralax">
+            <div>
+                <h1 class="title is-3 has-text-white">  TROUVEZ VOTRE APPARTEMENT </h1>
+                <div class="delimiter"></div>
+                 <p class="has-text-white text-info-site has-text-light">
+                    Vous cherchez un appartement à louer ou à vendre ? Immo Gabon est là pour vous.
+                    Trouvez le style d'appartement qu'il vaut faut et selon votre budget. Go !
+                 </p>
+                 <br>
+                 <div class="columns" style="width: 70%;margin: auto">
+                    <div class="column is-3">
+                        <div class="control" style="width: 100%">
+                            <div class="select" style="width: 100%">
+                                <select style="width: 100%">
+                                <option>A vendre</option>
+                                <option>A louer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="control" style="width: 100%">
+                            <div class="select" style="width: 100%">
+                                <select style="width: 100%">
+                                <option>Appartement</option>
+                                <option>Studio</option>
+                                <option>Duplex</option>
+                                <option>Chambre</option>
+                                </select>
+                            </div>
+                    </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="control">
+                                <input class="input" type="number" placeholder="Votre budget" min="0">
+                        </div>
+
+                    </div>
+                    <div class="column is-3">
+                        <a class="button is-primary is-hovered" style="width: 100%">Rechercher</a>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-last-publish">
+        <div>
+            <h2 class="title is-2">appartement à vendre</h2>
+            <div class="delimiter"></div>
+            <p class="text-delimiter">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            </p>
+        </div>
+       <div class="columns col-list is-narrow-mobile"> 
+        {% for house in houses %}
+        
+            <div class="column is-4">
+                <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}">
+                    <div class="cards">
+                        <div class="back-card" style="background: url('{{ vich_uploader_asset(house, 'imageFile') }}') center no-repeat;background-size: cover;height: 256px;border-radius: 20px 20px 15px 15px;">
+
+                        </div>
+                        <div class="col-content">
+                            <div class="child-content">
+                                <span>Ville</span>
+                                <span>2 chambre</span>
+                            </div>
+
+                            <div class="child-content">
+                            {% for typed in house.types %}
+                                <span>{{ typed.types }}</span>
+                            {% endfor %}
+                                <span>{{house.prix}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+       
+        {% endfor %} 
+        </div>
+    </div>
+    <div class="col-appart-modern">
+            <div class="btn-video">
+                <img src="images/theme_urbanpoint_img3.png">
+            </div>
+            <div class="text-modern-house">
+                    <h1 class="title is-1"> Maison moderne </h1>
+                    <p>
+                        loremConsequat nisi ad ea incididunt voluptate veniam ea velit qui veniam laboris consequat ea qui. Eiusmod consectetur ad ex incididunt. Anim incididunt id aute ipsum aute reprehenderit deserunt
+                    </p>
+            </div>
+    </div>
+    <div class="columns col-contact">
+        <div class="column is-6">
+            <h2 class="title is-2">Contactez-nous</h2>
+            <p>
+                Proident ex nulla quis dolore incididunt sit proident non ea ex. Pariatur tempor enim consequat enim dolore consequat. Cupidatat minim tempor veniam nisi cillum enim consectetur laborum adipisicing est. Laboris enim aliquip aliqua esse qui amet irure tempor.
+            </p>
+            <div class="columns" style="flex-wrap: wrap;margin-top: 2rem">
+                <div class="column is-6 list-items">
+                    <i class="fas fa-phone-volume"  aria-hidden="true"></i>
+                    <span>+212 06 38 02 51 33</span>         
+                </div>
+                <div class="column is-6 list-items">
+                    <i class="fa fa-envelope" aria-hidden="true" ></i>
+                      <span>yahanthony8@gmail.com</span>
+                </div>
+                <div class="column is-6 list-items">
+                     <i class="fas fa-map-marker"></i>
+                    <span>Boulevard Ghandi</span>
+                </div>
+                <div class="column is-6 list-items">
+                    <i class="far fa-clock"></i>
+                     <span>	Mon-Sat: 9:00 - 18:00</span>
+                </div>
+            </div>
+        </div>
+        <div class="column is-6">
+            {{form_start(contactForm)}}
+           <div class="columns" style="flex-wrap: wrap">
+                <div class="column is-6">
+                    {{form_row(contactForm.Nom)}}
+                </div>
+                <div class="column is-6">
+                    {{form_row(contactForm.Sujet)}}
+                </div>
+                <div class="column is-6">
+                    {{form_row(contactForm.Adresse)}}
+                </div>
+                <div class="column is-6">
+                    {{form_row(contactForm.Prenom)}}
+                </div>
+           </div>
+           <div class="columns" style="flex-wrap: wrap">
+                <div class="column is-12">
+                         {{form_row(contactForm.Message)}}
+                </div>
+                <div class="column is-12">
+                         <button class="btn-contact"> Envoyer le message </button>
+                </div>
+           </div>
+            {{form_end(contactForm)}}
+        </div>
+
+    </div>
+{% endblock %}

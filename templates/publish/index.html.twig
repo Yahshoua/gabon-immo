@@ -1,0 +1,245 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PublishController!{% endblock %}
+
+{% block body %}
+<style>
+    .col-publish {
+        margin-left: 11rem;
+    }
+    .control {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+.control_indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 0px solid #000000;
+}
+.control-radio .control_indicator {
+    border-radius: undefined%;
+}
+
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #cccccc;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #2aa1c0;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #0e6647d;
+}
+.control input:disabled ~ .control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.control-checkbox input:disabled ~ .control_indicator:after {
+    border-color: #7b7b7b;
+}
+.tagify tag>div::before {
+ -webkit-box-shadow: 0 0 12px 16px #e5e5e5 inset !important;
+ box-shadow: 0 0 12px 16px #e5e5e5 inset !important;
+}
+.myType {
+   
+}
+label {
+        white-space: nowrap;
+}
+.mycat .select2-container--default .select2-selection--single {
+    height: 38px;
+}
+.select2-container--default .select2-selection--single, .select2-selection , .select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border-color: #dbdbdb;
+    color: #363636;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    max-width: 100%;
+}
+.mycat .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 6px;
+}
+.mycat .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px;
+}
+.myh {
+        font-family: lato;
+        position: relative
+}
+.myh::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -12px;
+    width: 140px;
+    height: 3px;
+    background: #00d1b2;
+}
+.slide-ill {
+    background: url('https://images.pexels.com/photos/892618/pexels-photo-892618.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=900') center no-repeat;
+    background-size: cover;
+    height: 100%
+}
+.mycat .select2-container, #myType .select2-container {
+    width: 50% !important;
+}
+form[name=appartement] {
+    width: 80% !important;
+    padding-top: 5rem;
+}
+</style>
+<div class="columns col-publish" style="margin-top: 0;margin-bottom: 0;">
+
+    <div class="column is-9" style="padding-right: 12rem;padding: 0;">
+            <div style="margin-right: 5rem">
+            {{ form_start(form) }}
+                <h2 class="title is-3">Publiez votre bien immobilier</h2> <br>
+                <div class="columns" style="flex-wrap: wrap">
+                <div class="column is-12" style="display: flex">
+                <h2 class="title is-4 myh"><i class="fas fa-clipboard-list" style="font-size: 30px;"></i>  Infos utiles</h2>
+                </div>
+                    <div class="column is-4">
+                        {{ form_row(form.title) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.quartier) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.ville) }}
+                    </div>
+
+                    <div class="column is-4">
+                        <label for="prix" class="required">Montant</label>
+                        <div style="display: flex">
+                            <div style="display: grid">
+                                <input name="montant" id="prix" type="number" min="0" class="input" placeholder="exemple: 200 000" style="border-right: none;border-radius: 5px 0 0 5px">
+                            </div>
+                            <div class="select">
+                                <select style="border-radius: 0 0" name="forfait">
+                                    <option>Fcfa/Mois</option>
+                                    <option>Fcfa/jour</option>
+                                    <option>Fcfa fixe</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="column is-8" id="myType">
+                        {{ form_row(form.Types) }}
+                    </div>
+                    <div class="column is-12 mycat">
+                        {{ form_row(form.Category) }}
+                    </div>
+                </div>
+
+
+
+                <div class="columns" style="flex-wrap: wrap">
+                    <div class="column is-12" style="display: flex">
+                        <h2 class="title is-4 myh"><i class="fas fa-clipboard-list" style="font-size: 30px;"></i> Infos facultatif</h2>
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.parking) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.garage) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.surface) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.chambres) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.etages) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.piscines) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.salons) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.balcons) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.cuisines) }}
+                    </div>
+                    <div class="column is-6" id="myType">
+                    {{ form_row(form.annee) }}
+                    </div>
+                    <div class="column is-4">
+                        {{ form_row(form.douches) }}
+                    </div>
+                    <div class="column is-12" style="display: grid">
+                        <label> Specifications de votre bien (ajouter une specification en separant par une virgule)  </label>
+                        <input name="tags-jquery">
+                    </div>
+                    <div class="column is-12" style="dispaly: grid">
+                        <label>Ajouter une photo de votre bien</label>
+                        {{ form_row(form.imageFile) }}
+                        {# <div class="file">
+                            <label class="file-label">
+                            <input class="file-input" type="file" name="resume">
+                                <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Choisissez une image
+                                </span>
+                                </span>
+                            </label>
+                        </div> #}
+                    </div>
+                    <div  class="column is-6">
+                        <button type="submit" class="button is-primary">Publier</button>
+                    </div>
+                   
+                    {{ form_end(form) }}
+                </div>
+            </div>
+    </div>
+    <div class="column is-3 slide-ill">
+
+    </div>
+</div>
+{% endblock %}

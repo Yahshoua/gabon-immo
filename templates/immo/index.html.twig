@@ -1,0 +1,344 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}immo{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+{% block body %}
+<style>
+body {
+    background:#f7f7f7
+}
+.h-spec {
+    font-size: 24px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #d5dadd;
+    position: relative;
+}
+    .h-spec:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 174px;
+    height: 3px;
+    background: #00d1b2
+    }
+    .col-list-spec .column {
+        padding: 5px !important;
+        white-space: nowrap !important;
+    }
+    .col-comment {
+        background: #fff;
+        height: 250px;
+        border-radius: 5px;
+        padding: 13px;
+        display: flex
+    }
+    .thumb-avatar {
+        height: 60px;
+        width: 70px;
+        float: left;
+        border-radius: 5px;
+        background: url('https://lorempixel.com/640/480/?39446') center no-repeat;
+        background-size: cover
+    }
+    .col-ex {
+        height: 200px;
+        width: 100%;
+        margin-left: 7px;
+    }
+    .container {
+        position: relative
+    }
+    .bloc-reservation {
+        position: absolute;
+        width: 25%;
+        background: #fff;
+        top: 324px;
+        right: 0;
+        left: 943px;
+        border-radius: 8px 8px 0 0
+    }
+    .hd-price {
+        background: #00d1b2;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+    }
+    .hd-price>div:first-of-type {
+        border-bottom: 1px solid #11e2c3;
+    }
+     .hd-price div {
+        padding: 17px
+    }
+    .prices {
+        font-family: 'Lato-Bold' !important;
+         color: hsl(0, 0%, 100%) !important
+    }
+    sub {
+        font-size: 16px !important;
+         color: hsl(0, 0%, 100%) !important
+    }
+    .reserve {
+            line-height: 5rem;
+    }
+    .reserve input {
+        padding-bottom: 22px;
+        padding-top: 22px;
+        border-radius: 10px;
+    }
+    .btn-reserve {
+        width: 100%;
+        padding: 30px;
+        background: #00d1b2;
+        border: navajowhite;
+        border-radius: 0 0 10px 10px;
+        color: #fff;
+        font-size: 13pt;
+    }
+    .btn-reserve:hover { 
+        background: #1ee6c9;
+        cursor: pointer
+    }
+    hr {
+        background-color: #ccc !important;
+        height: 1px !important;
+    }
+    .card {
+        box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.08) !important;
+        -webkit-box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.08) !important;
+        overflow: hidden ;
+    }
+    .title {
+        font-family: lato-bold !important;
+    }
+</style>
+    <div class="col-head-immo" style="background:url('http://127.0.0.1:8000/images/duplex_house.jpg') center no-repeat;background-size: cover">
+        <div style="display: flex;padding-top: 2rem;">
+            <div style="width: 80%;padding-left: 1rem;">
+                <h2 class="title has-text-white is-1">  {{ houses.title }} </h2>
+            </div>
+            <div style="width: 20%">
+                <a class="button is-light">
+                    <span class="icon">
+                    <i class="fas fa-camera-retro" style="font-size: 18px;"></i>
+                    </span>
+                    <span>Voir la galerie d'image</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="columns" style="flex-wrap: wrap;">
+        <div class="column is-7" style="margin-left: 11rem;">
+            {# <div style="background: url('{{ houses.thumbnail }}') center no-repeat;background-size: cover;height: 400px;width: 702px">
+
+            </div> #}
+            <p style="margin-right: 13rem;text-align: justify;">
+                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+        <div class="column is-5">
+
+        </div>
+    </div>
+    <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem;">
+        <div class="column is-6" style="">
+            <div class="columns">
+            <div class="column is-12">
+                    <h2 class="title is-4 h-spec">Specification</h2>
+            </div>
+            </div>
+            <div class="columns col-list-spec" style="flex-wrap: wrap;margin-left: -6px;">
+                <div class="column is-4">
+                    Année: <b> {{ houses.annee }} </b>
+                </div>
+                <div class="column is-4">
+                    Espace: <b> {{ houses.surface }} </b>
+                </div>
+                 <div class="column is-4">
+                    Salon: <b> {{ houses.salons }} </b>
+                </div>
+
+                <div class="column is-4">
+                    Douches: <b> {{ houses.douches }} </b>
+                </div>
+                <div class="column is-4">
+                    Chambre: <b> {{ houses.chambres }} </b>
+                </div>
+                 <div class="column is-4">
+                    Balcons: <b> {{ houses.balcons }} </b>
+                </div>
+
+                <div class="column is-4">
+                   Parking: <b> {{ houses.parking }} </b>
+                </div>
+                <div class="column is-4">
+                    Etage: <b> {{ houses.etages }} </b>
+                </div>
+                 <div class="column is-4">
+                    Cuisine: <b> {{ houses.salons }} </b>
+                </div>
+
+                <div class="column is-4">
+                    Garage: <b> {{ houses.garage }} </b>
+                </div>
+                <div class="column is-4">
+                    Piscine: <b> {{ houses.piscines }} </b>
+                </div>
+                 <div class="column is-4">
+                    {# Assurance: <b> {{ houses.reqassurance }} </b> #}
+                </div>
+            </div>
+        </div>
+        <div class="column is-6">
+           
+        </div>
+    </div>
+    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-6" >
+             <div>
+                <h2 class="title is-4 h-spec">Caractéristiques</h2>
+            </div>
+        </div>
+        <div class="column is-6" >
+            
+        </div>
+    </div>
+    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+        <div class="column is-6">
+            <div class="columns" style="flex-wrap: wrap">
+                {% for spec in houses.caracteristiques %}
+                    <div class="column is-4">
+                        <i class="far fa-check-square" style="font-size: 18px;"></i><span> {{ spec }} </span>  
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-6" >
+             <div>
+                <h2 class="title is-4 h-spec">Commentaires: 3</h2>
+            </div>
+        </div>
+        <div class="column is-6" >
+            
+        </div>
+    </div>
+    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+        <div class="column is-8">
+            <div class="col-comment">
+               <div class="thumb-avatar">
+
+               </div>
+                <div class="col-ex" style="display: grid">
+                    <span>
+                        <span style="float: left;font-size: 17px;font-weight: bold;color: #00d1b2"> LOREM IPSUM </span>
+                        <span style="float: right;margin-right: 2rem">June 8, 2017 at 9:34 am</span>
+                    </span>
+                    
+                    <div style="display: ">
+                        <h2 class="title is-5" style="margin-bottom: 11px">Perfect Property</h2>
+                        <i class="fas fa-star" style="font-size: 14px;"></i>
+                        <br>
+                        <p>
+                                Clean and Nice! The hallway flows into a large, wide staircase that provides the main means of egress from the entertainment area of the house.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-6" >
+             <div>
+                <h2 class="title is-4 h-spec">Faire un commentaire</h2>
+            </div>
+        </div>
+        <div class="column is-6" >
+            
+        </div>
+    </div>
+    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+     {{ form_errors(form) }}
+         <div class="column is-8">
+                {{form_start(form)}}
+                    {{form_row(form.textes)}}
+                    <div class="columns" style="flex-wrap: wrap">
+                        <div class="column is-4 " style="position: relative">
+                            {{form_row(form.nom)}}
+                        </div>
+                         <div class="column is-4 ">
+                             {{form_row(form.prenom)}}
+                        </div>
+                         <div class="column is-4 ">
+                             {{form_row(form.email)}}
+                        </div>
+                    
+                        <div class="column is-12" style="">
+                                {{form_row(form.titre)}}
+                        </div>
+                        <div class="column is-12" style="margin-bottom: 1rem">
+                            <input type="submit" class="button is-primary" value="Publier le message">
+                        </div>
+                    </div>
+        {{form_end(form)}}
+         </div>
+    </div>
+        <div class="bloc-reservation">
+            <div class="hd-price">
+                <div>
+                    <span class="title"> <b class="prices">$120</b> <sub> Per Day </sub>  </span>
+                </div>
+                <div>
+                    <span class="title"> <b class="prices"> $899 </b>  <sub> Per month </sub>  </span>
+                </div>
+            </div>
+            <div style="padding: 3ex">
+                {{form_start(form2, {'attr': {'class': 'reserve'} } )}}
+                {{ form_widget(form2) }}
+                {{form_end(form2)}}
+            </div>
+             <input type="submit" class="btn-reserve" value="Reservation instantanée">
+        </div>
+        <script>
+            $(document).ready(function() {
+                $('.picked').pickadate()
+            })
+        </script>
+        <hr>
+         <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-6" >
+             <div>
+                <h2 class="title is-4 h-spec">Maisons&appartements connexes</h2>
+            </div>
+        </div>
+        <div class="column is-6" >
+            
+        </div>
+    </div>
+        <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem">
+            {% for annexe in annexes %}
+            <div class="column is-4">
+               <div class="card" style="border-radius: 7px;">
+                    <div class="card-content" style="background: url('{{ vich_uploader_asset(annexe, 'imageFile') }}') center no-repeat;background-size: cover;height: 216px;border-radius: 5px 7px 0 0;">
+                        
+                    </div>
+                    <footer class="card-footer">
+                      <div style="width: 100%;text-align: center;font-family: 'Lato-Bold';padding: 10px"> <h4 class="title is-5" style="color: #000"> {{annexe.title}} </h4> </div>  
+                    </footer>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}

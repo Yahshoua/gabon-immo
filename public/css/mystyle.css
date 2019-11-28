@@ -1,0 +1,11 @@
+.col-list {
+    margin-left: 14rem !important;
+    margin-right: 14rem !important;
+    flex-wrap: wrap !important
+}
+.child-content {
+    color: black
+}
+body, button, input, select, textarea {
+    font-family: 'Lato' !important
+}
