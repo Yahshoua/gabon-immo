@@ -129,8 +129,8 @@ form[name=appartement] {
 <div class="columns col-publish" style="margin-top: 0;margin-bottom: 0;">
 
     <div class="column is-9" style="padding-right: 12rem;padding: 0;">
-            <div style="margin-right: 5rem">
-            {{ form_start(form) }}
+            <div style="margin-right: 5rem" class="form-publish">
+            {{ form_start(form, {'attr': {'id': 'form_person_edit'}}) }}
                 <h2 class="title is-3">Publiez votre bien immobilier</h2> <br>
                 <div class="columns" style="flex-wrap: wrap">
                 <div class="column is-12" style="display: flex">
@@ -210,12 +210,11 @@ form[name=appartement] {
                         {{ form_row(form.douches) }}
                     </div>
                     <div class="column is-12" style="display: grid">
-                        <label> Specifications de votre bien (ajouter une specification en separant par une virgule)  </label>
-                        <input name="tags-jquery">
+                        {{form_row(form.tags, {'attr': {'id': 'tags'}})}}
                     </div>
                     <div class="column is-12" style="dispaly: grid">
                         <label>Ajouter une photo de votre bien</label>
-                        {{ form_row(form.imageFile) }}
+                        {{ form_row(form.imageFile, {'attr': {'id': 'file'}}) }}
                         {# <div class="file">
                             <label class="file-label">
                             <input class="file-input" type="file" name="resume">
@@ -231,7 +230,7 @@ form[name=appartement] {
                         </div> #}
                     </div>
                     <div  class="column is-6">
-                        <button type="submit" class="button is-primary">Publier</button>
+                        <button type="submit" class="button is-primary submited">Publier</button>
                     </div>
                    
                     {{ form_end(form) }}

@@ -203,6 +203,42 @@
           </div>
           <script>
             (function(){
+              //
+                $('.submited').on('click', function($e){
+                    $e.preventDefault()
+                   $form =  $('#form_person_edit')
+                   var formData = new FormData()
+                   var myform = document.getElementById("form_person_edit")
+                   //formData.append("appartement[imageFile]",  document.getElementById("appartement_imageFile").files[0])
+                   //formData.append("appartement", $('#form_person_edit').serialize())
+                   var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{{path('publish') }}");
+                    xhr.addEventListener('load', onRequestComplete, false);
+                    xhr.upload.addEventListener("load", onUploadComplete, false);
+                    xhr.upload.addEventListener("progress", onUploadProgress, false);
+                    xhr.send(new FormData(myform));
+                    function onRequestComplete() {
+
+                    }
+                    function onUploadComplete() {
+                      
+                    }
+                    function onUploadProgress() {
+                      
+                    }
+                   //$.ajax({
+                   // type        : 'POST',
+                   // contentType: false, // obligatoire pour de l'upload
+									//	processData: false,
+                   // url         :"{{path('publish') }}",
+                   // data        : formData,
+                   // success     : function(response)
+                   // {
+                   //     console.log('envoyé ', response)
+                  //  }
+                 // })
+                })
+              //
               var taged = new Array();
               $('#myType div:first-of-type, .mycat div:first-of-type').css('display', 'grid')
               $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
@@ -211,10 +247,9 @@
                 maximumSelectionLength: 2
               }) 
               toto = null
-                var $input = $('input[name=tags-jquery]')
+                var $input = $('input[id=appartement_tags]')
                     .tagify({
                     whitelist : [
-                    {"id":1,"value":"some string"}
                     ],
                     maxTags: 5
                 })
@@ -222,6 +257,7 @@
                     console.log('JQEURY EVENT: ', 'added', tagName)
                     toto = tagName;
                     taged.push(tagName.data.value)
+                    $('input[id=appartement_tags]').val(taged)
                     $.ajax({
                       url: "{{path('publish') }}",
                       method: "POST",
