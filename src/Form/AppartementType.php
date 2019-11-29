@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class AppartementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -149,6 +149,13 @@ class AppartementType extends AbstractType
                 'choice_label'=> 'label',
                 'attr'=> [
                     'class'=> 'input'
+                ]
+            ])
+            ->add('tags', TextType::class, [
+                'label'=> 'Specifications de votre bien (ajouter une specification en separant par une virgule)',
+                'attr'=> [
+                    'name'=> 'tags',
+                    'id'=> 'appartement_tags'
                 ]
             ]);
     }

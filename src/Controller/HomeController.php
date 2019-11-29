@@ -24,8 +24,8 @@ class HomeController extends AbstractController
         $elm = $appart->find(1);
         $formContact = $this->createForm(GetTouchType::class);
         $formContact->handleRequest($request);
-        $p=$elm->getTypes()->toArray();
-        dump($elm->getTypes()->toArray()[0]->getTypes());
+        // $p=$elm->getTypes()->toArray();
+        // dump($elm->getTypes()->toArray()[0]->getTypes());
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'houses'=>$all,

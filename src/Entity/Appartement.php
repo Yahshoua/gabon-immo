@@ -38,7 +38,7 @@ class Appartement
      */
     private $prix;
 
-
+        
     /**
      * @ORM\Column(type="datetime")
      */
@@ -146,6 +146,11 @@ class Appartement
      * @ORM\ManyToMany(targetEntity="App\Entity\Types", inversedBy="appartement")
      */
     private $types;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -162,7 +167,16 @@ class Appartement
     {
         return $this->title;
     }
-
+    public function getTags(): ?string
+    {
+        return $this->tags;
+    }
+    public function setTags(?string $tag): self
+    {
+         $this->tags = $tag;
+         
+         return $this;
+    }
     public function setTitle(string $title): self
     {
         $this->title = $title;
