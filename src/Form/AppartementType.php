@@ -29,13 +29,13 @@ class AppartementType extends AbstractType
             ->add('quartier', TextType::class, [
                 'label'=> 'Adresse',
                 'attr'=> [
-                    'plaholder'=> 'Adresse de votre bien',
+                    'placeholder'=> 'Adresse de votre bien',
                     'class'=> 'input'
                 ]
             ])
             ->add('ville', TextType::class, [
                 'attr'=> [
-                    'palceholder'=> 'exemple: Libreville',
+                    'placeholder'=> 'exemple: Libreville',
                     'class'=> 'input'
                 ]
             ])
@@ -48,9 +48,9 @@ class AppartementType extends AbstractType
                 ]
             ])
             ->add('imageFile', FileType::class, [
-                'label'=> 'Miniature (facultatif)',
+                'label'=> '',
                 'attr'=> [
-                    'class'=> 'input'
+                    'class'=> 'file-input'
                 ]
             ])
             ->add('douches', NumberType::class, [

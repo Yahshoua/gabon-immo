@@ -40,7 +40,7 @@ class PublishController extends AbstractController
             $brr = $form->getData()->getTags();        
             $appart->setCaracteristiques(explode(',', $brr));
             $manager->persist($appart);
-            $manager->flush();
+           // $manager->flush();
              return new JsonResponse([$appart->getCaracteristiques()], 201);
         }
         return $this->render('publish/index.html.twig', [
