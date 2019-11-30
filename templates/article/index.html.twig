@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    <div class="content"  style="padding-left: 37px;">
+        <h1 class="title">Tous les articles</h1>
+        <div class="columns">
+        {% for articles in article %}
+        <div class="column is-4">
+            <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                        <img src="{{ vich_uploader_asset(articles, 'imageFile') }}" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                            <img src="{{ vich_uploader_asset(articles, 'imageFile') }}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">{{articles.author}}</p>
+                        </div>
+                        </div>
+
+                        <div class="content">
+                        {{articles.content}}
+                        <br>
+                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <a href="{{path('lire', {index: articles.id, title: articles.title})}}">
+                            <button class="button is-primary">Lire la suite</button>
+                        </a>   
+                    </div>
+            </div>
+ </div>
+</div>     
+        {% endfor %}
+
+    </div>
+{% endblock %}

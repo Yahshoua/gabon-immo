@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreerController!{% endblock %}
+
+{% block body %}
+<div class="content"  style="padding-left: 37px;">
+        <h1 class="title">Creer un articles</h1>
+        <div class="columns">
+               
+                {{ form_start(formulaire)}}
+                <div class="column is-12">
+                    {{ form_row(formulaire.title) }}
+                </div>
+                <div class="column is-12">
+                    {{ form_row(formulaire.author) }}
+                </div>
+                <div class="column is-12">
+                    {{ form_row(formulaire.content) }}
+                </div>
+                <div class="column is-12">
+                    {{ form_row(formulaire.imageFile) }}
+                </div>
+                    <button type="submit" class="button is-primary">Creer</button>
+                {{form_end(formulaire)}}
+        </div>
+    </div>
+{% endblock %}

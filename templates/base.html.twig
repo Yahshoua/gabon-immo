@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        <style>
+          
+        </style>
+    </head>
+    <body>
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" >
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="{{path('home')}}">
+        Accueil
+      </a>
+      <a class="navbar-item" href="{{path('creer')}}">
+        Créer un article
+      </a>
+      <a class="navbar-item" href="{{path('article')}}">
+        Articles
+      </a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+       <div class="buttons">
+      {% if app.user %}
+            <a class="button is-light" href="{{path('app_logout')}}">
+              Deconnexion
+            </a>
+            {% else %}
+              <a class="button is-primary" href="{{path('inscription')}}">
+                <strong>Inscription</strong>
+              </a>
+              <a class="button is-light" href="{{path('app_login')}}">
+              Connexion
+              </a>
+      {% endif %}
+       </div> 
+      </div>
+    </div>
+  </div>
+</nav>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Inscription {% endblock %}
+
+{% block body %}
+<style>
+    .myclass {
+        background: red;
+        color: #fff
+    }
+</style>
+    <div class="content"  style="padding-left: 37px;">
+        <h1 class="title"> Inscription </h1>
+        {% if email_error %}
+            <h2> grosse erreur de l'email </h2>
+        {% endif %}
+        <div class="columns">
+                {{ form_start(formulaire) }}
+                <div class="column is-12">
+                    {{ form_widget(formulaire.email) }}
+                    {{ form_errors(formulaire.email, {'class': 'myclass'}) }}
+                </div>
+                <div class="column is-12">
+                    {{ form_widget(formulaire.password) }}
+                </div>
+                <button type="submit" class="button is-primary"> S'inscrire </button>
+                {{ form_end(formulaire) }}
+        </div>
+    </div>
+{% endblock %}
