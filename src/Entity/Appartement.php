@@ -37,19 +37,10 @@ class Appartement
      * @ORM\Column(type="integer")
      */
     private $prix;
-
-        
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $ville;
-
- 
     /**
      * @ORM\Column(type="array", nullable=true)
      */
@@ -114,33 +105,11 @@ class Appartement
      *
      * @var \DateTime
      */
-    private $updatedAt;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Photos", mappedBy="appartement")
-     */
-    private $photos;
-
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      * 
      */
     private $Category;
-
-     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
-     * @Vich\UploadableField(mapping="appart_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
-     *
-     * @var File
-     */
-    private $imageFile;
-     /**
-     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
-     *
-     * @var EmbeddedFile
-     */
-    private $image;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Types", inversedBy="appartement")
@@ -151,11 +120,19 @@ class Appartement
      */
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Photography", mappedBy="appartement", cascade={"persist"})
+     */
+    private $photographies;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
-        $this->photos = new ArrayCollection();
-        $this->image = new EmbeddedFile();
         $this->types = new ArrayCollection();
+        $this->photographies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,19 +185,6 @@ class Appartement
         return $this;
     }
 
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getVille(): ?string
     {
         return $this->ville;
@@ -239,7 +203,17 @@ class Appartement
     {
         return $this->caracteristiques;
     }
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
 
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
     public function setCaracteristiques(?array $caracteristiques): self
     {
         $this->caracteristiques = $caracteristiques;
@@ -378,38 +352,7 @@ class Appartement
 
         return $this;
     }
-    /**
-     * @return Collection|Photos[]
-     */
-    public function getPhotos(): Collection
-    {
-        return $this->photos;
-    }
-
-    public function addPhoto(Photos $photo): self
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->setAppartement($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photos $photo): self
-    {
-        if ($this->photos->contains($photo)) {
-            $this->photos->removeElement($photo);
-            // set the owning side to null (unless already changed)
-            if ($photo->getAppartement() === $this) {
-                $photo->setAppartement(null);
-            }
-        }
-
-        return $this;
-    }
-
-
+   
     public function getCategory(): ?Category
     {
         return $this->Category;
@@ -421,40 +364,7 @@ class Appartement
 
         return $this;
     }
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|UploadedFile $imageFile
-     */
-    public function setImageFile(?File $imageFile = null)
-    {
-        $this->imageFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImage(EmbeddedFile $image)
-    {
-        $this->image = $image;
-    }
-
-    public function getImage(): ?EmbeddedFile
-    {
-        return $this->image;
-    }
+    
 
     /**
      * @return Collection|Types[]
@@ -479,6 +389,37 @@ class Appartement
         if ($this->types->contains($type)) {
             $this->types->removeElement($type);
             $type->removeAppartement($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photography[]
+     */
+    public function getPhotographies(): Collection
+    {
+        return $this->photographies;
+    }
+
+    public function addPhotography(Photography $photography): self
+    {
+        if (!$this->photographies->contains($photography)) {
+            $this->photographies[] = $photography;
+            $photography->setAppartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhotography(Photography $photography): self
+    {
+        if ($this->photographies->contains($photography)) {
+            $this->photographies->removeElement($photography);
+            // set the owning side to null (unless already changed)
+            if ($photography->getAppartement() === $this) {
+                $photography->setAppartement(null);
+            }
         }
 
         return $this;

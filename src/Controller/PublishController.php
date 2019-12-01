@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Photography;
 use App\Entity\Appartement;
 use App\Form\AppartementType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,8 @@ class PublishController extends AbstractController
     public function index(Request $request, ObjectManager $manager)
     {
         $appart = new Appartement();
+        
         $tag = [];
-        $form = $this->createForm(AppartementType::class, $appart, ['action'=> $this->generateUrl('publish')]);
-        $form->handleRequest($request);
-
                 if ($request->isXMLHttpRequest()) {
                     $tag = $request->get('tag');
                     $response = new Response();
@@ -34,13 +33,25 @@ class PublishController extends AbstractController
                     $appart->setCaracteristiques($tag);
                     return $response;
                 }
+        $tag1 = new Photography();
+        $tag1->setName("mon name");
+        $appart->getPhotographies()->add($tag1);
+        dump($appart->getPhotographies());
+       // dump($appart->getPhotographies()->get(0)->getName());
+       $form = $this->createForm(AppartementType::class, $appart, ['action'=> $this->generateUrl('publish')]);
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $appart->setPrix(intval($request->get('montant')))
                     ->setCreatedAt(new \DateTime());
+            $tag1->setAppartement($appart);
+            $appart->getPhotographies()->add($tag1);
+            var_dump($appart);
+            var_dump($form->getData());
             $brr = $form->getData()->getTags();        
             $appart->setCaracteristiques(explode(',', $brr));
+            dump($form->getData());
             $manager->persist($appart);
-           // $manager->flush();
+            $manager->flush();
              return new JsonResponse([$appart->getCaracteristiques()], 201);
         }
         return $this->render('publish/index.html.twig', [

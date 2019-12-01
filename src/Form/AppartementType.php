@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Types;
-use App\Entity\Category;
 use App\Entity\Appartement;
+use App\Entity\Category;
+use App\Entity\Photography;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,6 +21,15 @@ class AppartementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('photographies', CollectionType::class, [
+            'entry_type'=> PhotographieType::class,
+            'entry_options'=> [
+                'label'=> false
+            ],
+            'by_reference'=> false,
+            'allow_add'=> true,
+            'allow_delete'=> true
+        ])
             ->add('title', TextType::class, [
                 'label'=> 'Titre de votre annonce',
                 'attr'=> [
@@ -45,12 +56,6 @@ class AppartementType extends AbstractType
                     'placeholder'=> 'exemple: 2012',
                     'class'=> 'input',
                     'min'=> 1000
-                ]
-            ])
-            ->add('imageFile', FileType::class, [
-                'label'=> '',
-                'attr'=> [
-                    'class'=> 'file-input'
                 ]
             ])
             ->add('douches', NumberType::class, [
