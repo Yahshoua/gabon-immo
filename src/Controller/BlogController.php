@@ -7,6 +7,7 @@ use App\Form\UserType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Utilisateurs;
+use App\Entity\Tag;
 use App\Repository\UtilisateursRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class BlogController extends AbstractController
@@ -45,10 +46,17 @@ class BlogController extends AbstractController
         $form = $this->createForm(UserType::class, $utilisateur);
         $form->handleRequest($request);
         $q = null;
+        $tag1 = new Tag();
+        $tag2 = new Tag();
+        $tag1->setName('tag1');
+        $tag2->setName('tag2');
         if ($form->isSubmitted() && $form->isValid()) {
             $q = $repo->findOneBy(['email' => $utilisateur->getEmail()]);
             dump('email retrive ', $q);
            // dump($form->getData());
+            $utilisateur->getTags()->add($tag1);
+            $utilisateur->getTags()->add($tag2);
+            dump($form->getData());
             if($q) {
                 dump("l'email existe deja  ");
             } else {

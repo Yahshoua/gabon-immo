@@ -41,7 +41,6 @@ class Article
     private $createdAt;
    /**
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
-     *
      * @var EmbeddedFile
      */
     private $image;

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,6 +35,10 @@ class UserType extends AbstractType
                     'first_options'=> ['label'=> 'Mot de passe'],
                     'second_options'=> ['label'=> 'confirmer mot de passe']
             ])
+            ->add('tags', CollectionType::class, [
+                'entry_type' => TagType::class,
+                'entry_options' => ['label' => false],
+            ]);
             // ->add('password', PasswordType::class, [
             //     'label'=> 'Mot de passe',
             //     'attr'=> [

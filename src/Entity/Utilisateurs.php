@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateursRepository")
  */
@@ -17,6 +18,7 @@ class Utilisateurs implements UserInterface
      */
     private $id;
 
+    protected $tags;
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email(
@@ -24,7 +26,11 @@ class Utilisateurs implements UserInterface
      * )
      */
     private $email;
-
+    
+    public function getTags()
+    {
+        return $this->tags;
+    }
     /**
      * @ORM\Column(type="json")
      */
@@ -36,6 +42,10 @@ class Utilisateurs implements UserInterface
      */
     private $password;
 
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
