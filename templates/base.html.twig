@@ -1,0 +1,338 @@
+{# templates/base.html.twig #}
+<!DOCTYPE html>
+<html ng-app="myapp">
+     <head>
+        <meta charset="UTF-8">
+        <script src="http://127.0.0.1:8000/js/jquery-3.3.1.min.js"></script>
+        <script src="http://127.0.0.1:8000/js/picker.js"></script>
+        <script src="http://127.0.0.1:8000/js/pickerdate.js"></script>
+        <script src="http://127.0.0.1:8000/js/legacy.js"></script>
+        <script src="http://127.0.0.1:8000/js/jQuery.tagify.min.js"></script>
+        <link href="http://127.0.0.1:8000/css/tagify.css" rel="stylesheet">
+        <script src="http://127.0.0.1:8000/js/jquery.tinycarousel.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel='stylesheet' href="css/mystyle.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+        <script src="http://127.0.0.1:8000/js/select2.js"></script>
+        <script src="http://127.0.0.1:8000/js/angular.js"></script>
+        {% block stylesheets %}
+            {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <style>
+          .title {
+            font-family: 'ubuntu' 
+          }
+           .footer .title, .footer p,  .footer span, .footer i {
+            color: #fff; 
+          }
+          .list-items {
+            display: flgridex
+          }
+          .list-items i {
+            font-size: 15px;
+            margin-right: 7px;
+          }
+        </style>
+    </head>
+    <body>
+    <!-- navBar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="" href="{{ path('home') }}">
+      <img src="http://127.0.0.1:8000/images/home.png" style="width: 50px;height: 50px">
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a href="{{ path('home') }}" class="navbar-item">
+        Accueil
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Type de Maison
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            A vendre
+          </a>
+          <a class="navbar-item">
+            A louer
+          </a>
+          <a class="navbar-item">
+            Journalier
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Pages
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+           Accueil
+          </a>
+          <a class="navbar-item">
+            A propos
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="{{path('publish') }}" class="button is-primary">
+            <strong>Publier une annonce</strong>
+          </a>
+          <a class="button is-light">
+            Se connecter
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+        <!-- ... -->
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <!-- Renders app.js & a webpack runtime.js file
+                <script src="/build/runtime.js"></script>
+                <script src="/build/app.js"></script> -->
+        {% endblock %}
+        {% block body %}{% endblock %}
+        {% block footer %}
+          <div class="footer">
+            <div class="columns" style="margin-left: 11rem !important;margin-right: 11rem !importan">
+              <div class="column is-3">
+                  <h3 class="title is-4">A propos de nous</h3>
+                <p style="margin-right: 5rem;text-align: justify;margin-top: 2rem">
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut du
+                  aute irure dolor in reprehenderit. Lorem ipsum dolor sit amet, ctetur elitse
+                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
+                </p>
+                <div style="margin-top: 1rem;line-height: 40px">
+                  <div class="list-items">
+                      <i class="fas fa-phone-volume"  aria-hidden="true"></i>
+                      <span>+212 06 38 02 51 33</span>
+                  </div>
+                  <div class="list-items">
+                      <i class="fa fa-envelope" aria-hidden="true" ></i>
+                      <span>yahanthony8@gmail.com</span>
+                  </div>
+                  <div class="list-items">
+                    <i class="fas fa-map-marker"></i>
+                    <span>Boulevard Ghandi</span>
+                  </div>
+                </div>
+                
+
+              </div>
+              <div class="column is-3">
+                  <h3 class="title is-4">Liens utiles</h3>
+                  <div style="margin-top: 1rem;line-height: 40px">
+                  <div class="list-items">
+                      
+                      <span>A propos de nous</span>
+                  </div>
+                  <div class="list-items">
+                 
+                      <span>Blog</span>
+                  </div>
+                  <div class="list-items">
+                    
+                    <span>Service</span>
+                  </div>
+                  <div class="list-items">
+                    
+                    <span>Nous contacter</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-3">
+                  <h3 class="title is-4">LOUEZ AVEC NOUS</h3>
+                  <div style="margin-top: 1rem;line-height: 40px">
+                  <div class="list-items">
+                      <span>Louer une maison</span>
+                  </div>
+                  <div class="list-items">
+                      <span>Reserver maintenant</span>
+                  </div>
+                  <div class="list-items">
+                    <span>Reservez votre chambre</span>
+                  </div>
+                  <div class="list-items">
+                    <span>Acheter votre maison</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-3">
+                  <h3 class="title is-4" style="margin-left: 24px;"> Dernieres News</h3>
+                  <div>
+                      <div id="slider1">
+                        
+                        <div class="viewport">
+                          <a class="buttons prev" href="#"><</a>
+                            <ul class="overview">
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
+                            </ul>
+                          <a class="buttons next" href="#">></a>
+                        </div>
+                        
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        {% endblock %}
+    </body>
+</html>
+ <script>
+            (function(){
+              (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                $notification = $delete.parentNode;
+                $delete.addEventListener('click', () => {
+                  $notification.parentNode.removeChild($notification);
+                });
+              });
+               var app = angular.module('myapp', [])
+               app.controller("publishController",function($scope){
+                 $('.file-input').on('change', function() {
+                   var $container = $('div#appartement_photographies');
+                   var elm = $container.attr('data-prototype').replace(/__name__label__/g, 'Fichier n°').replace(/__name__/g,"index")
+                  console.log('eeh ',  $(elm))
+                 })
+                    $scope.max = 3
+                    $scope.uncount = 10
+                    $('#appartement_imageFile').on('change', function($e) {
+                        var name = document.getElementById("appartement_imageFile").files[0]
+                        $(".file-name").html(name.name)
+                    })
+                    $('#appartement_title').keydown(function($e){
+                      var e = $('#appartement_title').val().length + 1
+                      var unicode=$e.charCode? $e.charCode : $e.keyCode
+                      console.log(unicode , 'e ', e)
+                      if(e >=1 && e <=10 && unicode == 8) {
+                        if($scope.uncount >= 10) return
+                          $scope.uncount++
+                      }
+                      if(unicode !==8 && e<=10 && e>0 ) {
+                        if($scope.uncount <= 0) return
+                          $scope.uncount--
+                      }
+                      $scope.uncount <= 0 ? $scope.title = true : $scope.title = false
+                          $scope.$apply()
+                    })
+                    $('.submited').on('click', function($e){
+                    $e.preventDefault()
+                    var titre = $('#appartement_title').val()
+                    var adresse = $('#appartement_quartier').val()
+                    var ville = $('#appartement_ville').val()
+                    var prix = $('#prix').val()
+                    console.log(titre.length)
+                    if(titre.length<= 0) {
+                      $scope.title = true
+                    }
+                     $scope.incomplet = false
+                    if(adresse.length<= 0) {
+                      $scope.adresse = true
+                      $scope.incomplet = true
+                    }
+                    if(adresse.length<= 0) {
+                      $scope.ville = true
+                      $scope.incomplet = true
+                    }
+                    if(prix.length<= 0) {
+                      $scope.prix = true
+                      $scope.incomplet = true
+                    }
+                    $scope.$apply()
+                    
+                   $form =  $('#form_person_edit')
+                   var formData = new FormData()
+                   var myform = document.getElementById("form_person_edit")
+                   //formData.append("appartement[imageFile]",  document.getElementById("appartement_imageFile").files[0])
+                   //formData.append("appartement", $('#form_person_edit').serialize())
+                   var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{{path('publish') }}");
+                    xhr.addEventListener('load', onRequestComplete, false);
+                    xhr.upload.addEventListener("load", onUploadComplete, false);
+                    xhr.upload.addEventListener("progress", onUploadProgress, false);
+                    xhr.send(new FormData(myform));
+                    function onRequestComplete() {
+
+                    }
+                    function onUploadComplete() {
+                      
+                    }
+                    function onUploadProgress() {
+                      
+                    }
+                })
+               })
+                
+              //
+              var taged = new Array();
+              $('#myType div:first-of-type, .mycat div:first-of-type').css('display', 'grid')
+              $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+              $("#appartement_Category").select2()
+              $('#appartement_Types').select2({
+                maximumSelectionLength: 2
+              }) 
+              toto = null
+                var $input = $('input[id=appartement_tags]')
+                    .tagify({
+                    whitelist : [
+                    ],
+                    maxTags: 5
+                })
+                .on('add', function(e, tagName){
+                    console.log('JQEURY EVENT: ', 'added', tagName)
+                    toto = tagName;
+                    taged.push(tagName.data.value)
+                    $('input[id=appartement_tags]').val(taged)
+                    $.ajax({
+                      url: "{{path('publish') }}",
+                      method: "POST",
+                      dataType: "JSON",
+                      data: {tag: taged}
+                    }).done(function(){
+
+                    }).fail(function(err){
+                        console.log('erreur ', err);
+                    })
+                })
+                .on('remove', function(e, tagName){
+                  console.log('JQEURY EVENT: ', 'remove', tagName)
+                  var index = tagName.index
+                  // recup l index
+                  taged.splice(index, 1)
+                  console.log('tagName ', taged)
+                })
+                .on('invalid', function(e, tagName) {
+                    console.log('JQEURY EVENT: ',"invalid", e, ' ', tagName);
+                });
+                    var jqTagify = $input.data('tagify');
+                    $('.tags-jquery--removeAllBtn').on('click', 
+                    jqTagify.removeAllTags.bind(jqTagify)
+                    )
+                })()
+          </script>

@@ -1,0 +1,7 @@
+index:
+  path: /
+  controller: App\Controller\HomeController::index
+publier:
+  path: /publish
+  controller: App\Controller\PublishController::index
+  methods: [POST]
