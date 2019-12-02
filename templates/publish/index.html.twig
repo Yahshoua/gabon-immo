@@ -238,15 +238,17 @@ form[name=appartement] {
                         <label>Ajouter une photo de votre bien (facultatif)</label>
                         <div class="column is-12">
                         </div>
+                        <div class="column is-12">
+                            {{form_row(form.imageFile)}}
+                        </div>
                        <div class="column is-12">
-                       <div class="photographies" data-prototype="{{ form_widget(form.photographies.vars.prototype)|e('html_attr') }}">
-                            {# {{dump(form.photographies.vars.prototype)}} #}
-                                {% for row in form.photographies %}
-                                        {{ form_row(row) }}
-                                {% endfor %}
-                       </div>
-                       
-                       
+                                <div class="photographies" data-prototype="{{ form_widget(form.photographies.vars.prototype)|e('html_attr') }}">
+                                        {# {{dump(form.photographies.vars.prototype)}} #}
+                                            {% for row in form.photographies %}
+                                                    {{ form_row(row) }}
+                                            {% endfor %}
+                                </div>
+                                <div id="totos"></div>
                         </div>
                        
                         {# <div class="file has-name">
