@@ -20,7 +20,7 @@ class PhotographieType extends AbstractType
             'allow_delete' => true,
             'download_label' => '...',
             'download_uri' => true,
-            'image_uri' => true
+            'image_uri' => true,
         ])
         ;
     }

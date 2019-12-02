@@ -33,10 +33,10 @@ class PublishController extends AbstractController
                     $appart->setCaracteristiques($tag);
                     return $response;
                 }
-        $tag1 = new Photography();
-        $tag1->setName("mon name");
-        $appart->getPhotographies()->add($tag1);
-        dump($appart->getPhotographies());
+        // $tag1 = new Photography();
+        // $tag1->setName("mon name");
+        // $appart->getPhotographies()->add($tag1);
+        // dump($appart->getPhotographies());
        // dump($appart->getPhotographies()->get(0)->getName());
        $form = $this->createForm(AppartementType::class, $appart, ['action'=> $this->generateUrl('publish')]);
         $form->handleRequest($request);

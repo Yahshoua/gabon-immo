@@ -162,6 +162,9 @@ class AppartementType extends AbstractType
                     'name'=> 'tags',
                     'id'=> 'appartement_tags'
                 ]
+            ])
+            ->add('imageFile', FileType::class,[
+                'label'=>false
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

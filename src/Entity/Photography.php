@@ -40,9 +40,7 @@ class Photography
      * @ORM\ManyToOne(targetEntity="App\Entity\appartement", inversedBy="photographies")
      */
     private $appartement;
-    /**
-     * @ORM\Column(type="text")
-     */
+    
     private $name;
 
     public function __construct() {
@@ -73,7 +71,12 @@ class Photography
 
         return $this;
     }
-
+    public function addAppartement(Appartement $appartement)
+{
+    if (!$this->appartement->contains($appartement)) {
+        $this->appartement->add($appartement);
+    }
+}
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the  update. If this
