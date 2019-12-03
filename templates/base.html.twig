@@ -216,20 +216,15 @@
                 });
               });
                 // codes pour ajouter et supprimer des photos
-              var $addTagButton = $('<button type="button" class="add_tag_link">Add a tag</button>');
-              var $newLinkLi = $('<li></li>').append($addTagButton);
+            
+              var $newLinkLi = $('.photogrphy')
               $collectionHolder = $("div.photographies");
-              $collectionHolder.append($newLinkLi);
-
-               $collectionHolder.find('li').each(function() {
-                addTagFormDeleteLink($(this));
+               $collectionHolder.find('.photogrphy').each(function() {
+                 addTagFormDeleteLink($(this));
               });
-
-               console.log('eeh ', $collectionHolder)
               $collectionHolder.data('index', $collectionHolder.find(':input').length);
-              console.log($collectionHolder)
-              $('#totos').html($newLinkLi)
-               $addTagButton.on('click', function(e) {
+               $(".addTagButton").on('click', function(e) {
+                  e.preventDefault()
                     // add a new tag form (see next code block)
                     addTagForm($collectionHolder, $newLinkLi);
                 });
@@ -255,18 +250,21 @@
                       $collectionHolder.data('index', index + 1);
 
                       // Display the form in the page in an li, before the "Add a tag" link li
-                      var $newFormLi = $('<li></li>').append(newForm);
+                      var $newFormLi = $(newForm);
                       $newLinkLi.before($newFormLi);
                       // ajouter un lien de supprimer de la nouvelle form li
                         addTagFormDeleteLink($newFormLi);
                     }
                     function addTagFormDeleteLink($tagFormLi) {
-                    var $removeFormButton = $('<button type="button">Supprimer la photo</button>');
-                    $tagFormLi.append($removeFormButton);
+                      console.log( $tagFormLi)
+                    var $removeFormButton = $('<div class="buttons" style="margin-top:5px"><button class="button is-danger is-light is-small"" type="button">Supprimer la photo</button></div>');
+                     $tagFormLi.append($removeFormButton);
 
                     $removeFormButton.on('click', function(e) {
                         // remove the li for the tag form
-                        $tagFormLi.remove();
+                        e.preventDefault()
+                       $tagFormLi.remove();
+                      console.log($tagFormLi)
                     });
                 }
                   //

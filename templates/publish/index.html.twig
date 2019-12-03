@@ -142,6 +142,9 @@ form[name=appartement] {
 <div class="columns col-publish" style="margin-top: 0;margin-bottom: 0;" ng-controller="publishController">
     <div class="column is-9" style="padding-right: 12rem;padding: 0;">
             <div style="margin-right: 5rem" class="form-publish">
+            	
+            {# {% import "macro/mymacro.html.twig" as mycro %} #}
+            {% form_theme form 'forms/myform.html.twig' %}
             {{ form_start(form, {'attr': {'id': 'form_person_edit'}}) }}
                 <h2 class="title is-3">Publiez votre bien immobilier</h2> <br>
                 <div class="columns" style="flex-wrap: wrap">
@@ -236,24 +239,9 @@ form[name=appartement] {
                     </div>
                     <div class="column is-12" style="dispaly: grid">
                         <label>Ajouter une photo de votre bien (facultatif)</label>
-                        <div class="column is-12">
-                        </div>
-                        <div class="column is-12">
-                            {{form_row(form.imageFile)}}
-                        </div>
-                       <div class="column is-12">
-                                <div class="photographies" data-prototype="{{ form_widget(form.photographies.vars.prototype)|e('html_attr') }}">
-                                        {# {{dump(form.photographies.vars.prototype)}} #}
-                                            {% for row in form.photographies %}
-                                                    {{ form_row(row) }}
-                                            {% endfor %}
-                                </div>
-                                <div id="totos"></div>
-                        </div>
-                       
-                        {# <div class="file has-name">
+                            <div class="file has-name">
                             <label class="file-label">
-                                 <input class="file-input" type="file" name="resume">
+                                 {{form_row(form.imageFile)}}
                                 <span class="file-cta">
                                 <span class="file-icon">
                                     <i class="fas fa-upload"></i>
@@ -266,66 +254,19 @@ form[name=appartement] {
                                      image par defaut
                                 </span>
                             </label>
-                            </div> #}
+                            </div>
                     </div>
-                    {# <div class="column is-12" style="display: flex">
-                        <h2 class="title is-4 myh lign3"><i class="fas fa-clipboard-list"></i> Ajoutez des images </h2>
-                    </div>
-                        <div class="column is-4">
-                           <div class="file has-name is-boxed">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="resume">
-                                    <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choisissez une image
-                                    </span>
-                                    </span>
-                                    <span class="file-name">
-                                    Screen Shot 2017-07-29 at 15.54.25.png
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                           <div class="file has-name is-boxed">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="resume">
-                                    <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choisissez une image
-                                    </span>
-                                    </span>
-                                    <span class="file-name">
-                                    Screen Shot 2017-07-29 at 15.54.25.png
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="file has-name is-boxed">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="resume">
-                                    <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choisissez une image
-                                    </span>
-                                    </span>
-                                    <span class="file-name">
-                                    Screen Shot 2017-07-29 at 15.54.25.png
-                                    </span>
-                                </label>
-                            </div>
-                        </div> #}
-                    <div  class="column is-6">
+                                {# <div class="photographies column is-12" data-prototype="{{ mycro.printStepPrototype(form.photographies.vars.prototype)|e('html_attr') }}"> #}
+                            <div class="photographies column is-12" data-prototype="{{form_widget(form.photographies.vars.prototype)|e('html_attr')}}">
+                                    <div class="buttons">
+                                        <button class="button is-primary is-light addTagButton"> <i class='fas fa-plus'></i> Ajouter des photos</button>
+                                    </div>
+                                        {# {% for row in form.photographies %}{% endfor %} #}
+                                </div>
+                          <div class="columns photogrphy"  style="flex-wrap: wrap">
+
+                          </div>  
+                    <div  class="column is-12">
                         <button type="submit" class="button is-primary submited">Publier</button>
                     </div>
                    

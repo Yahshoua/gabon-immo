@@ -43,7 +43,7 @@ class PublishController extends AbstractController
         if ($form->isSubmitted()) {
             $appart->setPrix(intval($request->get('montant')))
                     ->setCreatedAt(new \DateTime());
-            $tag1->setAppartement($appart);
+           // $tag1->setAppartement($appart);
            // var_dump($form->getData());
             $brr = $form->getData()->getTags();        
             $appart->setCaracteristiques(explode(',', $brr));

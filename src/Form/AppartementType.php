@@ -23,12 +23,11 @@ class AppartementType extends AbstractType
         $builder
         ->add('photographies', CollectionType::class, [
             'entry_type'=> PhotographieType::class,
-            'entry_options'=> [
-                'label'=> false
-            ],
             'by_reference'=> false,
             'allow_add'=> true,
-            'allow_delete'=> true
+            'allow_delete'=> true,
+            'prototype' => true,
+            'label'=> false
         ])
             ->add('title', TextType::class, [
                 'label'=> 'Titre de votre annonce',
@@ -164,7 +163,11 @@ class AppartementType extends AbstractType
                 ]
             ])
             ->add('imageFile', FileType::class,[
-                'label'=>false
+                'label'=>false,
+                'attr'=> [
+                    'class'=> 'file-input',
+                    'required'=> false
+                ]
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

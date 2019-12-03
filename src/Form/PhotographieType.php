@@ -21,10 +21,13 @@ class PhotographieType extends AbstractType
             'download_label' => '...',
             'download_uri' => true,
             'image_uri' => true,
-        ])
-        ;
+            'label'=> false
+        ]);
+        // ->add('name', TextType::class, [
+        //     'label'=> false
+        // ]);
     }
-
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

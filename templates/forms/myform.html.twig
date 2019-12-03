@@ -1,0 +1,27 @@
+
+{% form_theme form _self %}
+
+{# this overrides the entire row of the field whose "id" = "product_stock" (and whose
+   "name" = "product[stock]") but only in the forms rendered inside this template #}
+{% block _appartement_photographies_entry_widget %}
+    <div class='column is-6 morephoto'>
+         {# {{ form_widget(form.imageFile.file) }} #}
+       <div class="file has-name is-boxed">
+            <label class="file-label lab">
+                    {{ form_widget(form.imageFile.file, {'attr': {'class': 'file-input'}}) }}
+                <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                    Choisissez une photo
+                </span>
+                </span>
+                <span class="file-name">
+                image_vide.png
+                </span>
+            </label>
+        </div>                                        
+    </div>
+      
+{% endblock %}
