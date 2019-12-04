@@ -264,8 +264,9 @@
                         // remove the li for the tag form
                         e.preventDefault()
                        $tagFormLi.remove();
-                      console.log($tagFormLi)
+                       $('.slide-ill').css('height', $('.col-publish').height() - $('.navbar').height() + 'px' )
                     });
+                    $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
                 }
                   //toto
                $("#toto").html($collectionHolder)

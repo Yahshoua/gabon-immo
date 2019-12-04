@@ -47,7 +47,7 @@ class HouseController extends AbstractController
         //Find By categorie
         dump($find->getCategory()->getId());
        $e = $appartement->findByAnnexes($find->getCategory()->getId(), $id);
-       dump($e);
+       dump($find);
         return $this->render('immo/index.html.twig', [
             'houses'=> $find,
             'form'=>  $form->createView(),

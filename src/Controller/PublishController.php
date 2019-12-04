@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\File;
 class PublishController extends AbstractController
 {
     /**
@@ -23,21 +25,25 @@ class PublishController extends AbstractController
         $appart = new Appartement();
         
         $tag = [];
-                if ($request->isXMLHttpRequest()) {
-                    $tag = $request->get('tag');
-                    $response = new Response();
-                    $response->setContent(json_encode([
-                    'tag'=> 'ok'
-                    ]));
-                    $response->headers->set('Content-Type', 'application/json');
-                    $appart->setCaracteristiques($tag);
-                    return $response;
-                }
+                // if ($request->isXMLHttpRequest()) {
+                //     $tag = $request->get('tag');
+                //     $response = new Response();
+                //     $response->setContent(json_encode([
+                //     'tag'=> 'ok'
+                //     ]));
+                //     $response->headers->set('Content-Type', 'application/json');
+                //     $appart->setCaracteristiques($tag);
+                //     return $response;
+                // }
         // $tag1 = new Photography();
         // $tag1->setName("mon name");
         // $appart->getPhotographies()->add($tag1);
         // dump($appart->getPhotographies());
        // dump($appart->getPhotographies()->get(0)->getName());
+        $file = 'images/background-immo.jpg';
+        // $response = new File($file);
+        // $appart->setImageFile($response);
+        // dump($appart->setImageFile());
        $form = $this->createForm(AppartementType::class, $appart, ['action'=> $this->generateUrl('publish')]);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -45,10 +51,12 @@ class PublishController extends AbstractController
                     ->setCreatedAt(new \DateTime());
            // $tag1->setAppartement($appart);
            // var_dump($form->getData());
+           
             $brr = $form->getData()->getTags();        
             $appart->setCaracteristiques(explode(',', $brr));
+            dump(  $brr);
+            dump( $appart->getCaracteristiques());
             $manager->persist($appart);
-            dump($appart->getPhotographies());
             $manager->flush();
             
              return new JsonResponse([$appart->getCaracteristiques()], 201);
