@@ -145,11 +145,11 @@ color: #00c4a7
             <div class="column is-4">
                 <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}">
                     <div class="cards">
-                        {% for image in house.photographies %}
-                            <div class="back-card" style="background: url({{ vich_uploader_asset(image, 'imageFile') }}) center no-repeat;background-size: cover;height: 256px;border-radius: 20px 20px 15px 15px;">
+                        {# {% for image in house.photographies %}{% endfor %} #}
+                            <div class="back-card" style="background: url({{ vich_uploader_asset(house, 'imageFile') }}) center no-repeat;background-size: cover;height: 256px;border-radius: 20px 20px 15px 15px;">
 
                             </div>
-                        {% endfor %}
+                        
                         
                         <div class="col-content">
                             <div class="child-content">
