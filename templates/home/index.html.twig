@@ -146,22 +146,29 @@ color: #00c4a7
                 <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}">
                     <div class="cards">
                         {# {% for image in house.photographies %}{% endfor %} #}
+                        {% if house.image.name %}
                             <div class="back-card" style="background: url({{ vich_uploader_asset(house, 'imageFile') }}) center no-repeat;background-size: cover;height: 256px;border-radius: 20px 20px 15px 15px;">
 
                             </div>
+                        {% else %}
+                            <div class="back-card" style="background: url(images/home.png) center no-repeat;background-size: contain;background-color: aliceblue;height: 256px;border-radius: 20px 20px 15px 15px;">
+                            </div>
+                        {% endif %}
+
+                            
                         
                         
                         <div class="col-content">
                             <div class="child-content">
-                                <span>Ville</span>
-                                <span>2 chambre</span>
+                                <span>{{house.category.label}}</span>
+                                <span style="font-size: 13px;">{{house.createdAt|date("m/d/Y", "Europe/Paris")}}</span>
                             </div>
 
                             <div class="child-content">
-                            {% for typed in house.types %}
-                                <span>{{ typed.types }}</span>
-                            {% endfor %}
-                                <span>{{house.prix}}</span>
+                           
+                                <span>{{ house.ville }}</span>
+                          
+                                <span style="font-size: 13px;">{{house.prix}}</span>
                             </div>
                         </div>
                     </div>
