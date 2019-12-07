@@ -216,7 +216,6 @@
                 });
               });
                 // codes pour ajouter et supprimer des photos
-            
               var $newLinkLi = $('.photogrphy')
               $collectionHolder = $("div.photographies");
                $collectionHolder.find('.photogrphy').each(function() {
@@ -268,11 +267,74 @@
                     });
                     $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
                 }
-                  //toto
+                  //titi
                $("#toto").html($collectionHolder)
                 
                var app = angular.module('myapp', [])
-               app.controller("publishController",function($scope){
+              app.controller('formController', function($scope){
+                    $('.comment').on('click', function(e) {
+                        e.preventDefault()
+                        var form = $('form[name="form_comment"]').serialize()
+                        var titre = $(this).attr('titre')
+                        var id = $(this).attr('id')
+                        var link = `${titre}-${id}`
+                        console.log(link)
+                        $scope.alert = false
+                        if($("#form_comment_textes").val()== '') {
+                            $scope.message = true
+                            $scope.alert = true
+                             $scope.$apply()
+                            return
+                        }
+                        $scope.message = false
+                        if($("#form_comment_nom").val()== '') {
+                            $scope.nom = true
+                            $scope.alert = true
+                             $scope.$apply()
+                            return
+                        }
+                        $scope.nom = false
+                         if($("#form_comment_prenom").val()== '') {
+                            $scope.prenom = true
+                            $scope.alert = true
+                             $scope.$apply()
+                            return
+                        }
+                        $scope.prenom = false
+                         if($("#form_comment_email").val()== '') {
+                            $scope.email = true
+                            $scope.alert = true
+                             $scope.$apply()
+                            return
+                        }
+                        $scope.email = false
+                        if($("#form_comment_titre").val()== '') {
+                            $scope.titre = true
+                            $scope.alert = true
+                             $scope.$apply()
+                            return
+                        }
+                        $scope.titre = false
+                        $scope.alert = false
+                        $scope.send = true
+                        $scope.$apply()
+                        $("#form_comment_textes, #form_comment_titre,#form_comment_email,#form_comment_prenom, #form_comment_nom").val('')
+                        setTimeout(function(){
+                          $.ajax({
+                            method: 'POST',
+                            url:`${titre}-${id}`,
+                            data: form
+                          }).done(function(data) {
+                              $("#commentaires").prepend(data)
+                               $scope.send = false
+                                $scope.$apply()
+                          })
+                          }, 3000)
+                        
+                    })
+                    
+              })
+               .controller("publishController",function($scope){
                  $('.file-input').on('change', function() {
                    var $container = $('div#appartement_photographies');
                    var elm = $container.attr('data-prototype').replace(/__name__label__/g, 'Fichier n°').replace(/__name__/g,"index")
@@ -302,7 +364,7 @@
                     $('.submited').on('click', function($e){
                     $e.preventDefault()
                     var titre = $('#appartement_title').val()
-                    var adresse = $('#appartement_quartier').val()
+                    var adresse = $('#appartement_numero').val()
                     var ville = $('#appartement_ville').val()
                     var prix = $('#prix').val()
                     console.log(titre.length)

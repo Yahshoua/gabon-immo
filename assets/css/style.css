@@ -54,7 +54,7 @@ body, button, input, select, textarea {
 }
 .child-content {
     display: grid;
-    padding: 3ex;
+    padding: 7px;
     width: 50%
 }
 .col-content>.child-content:first-of-type {

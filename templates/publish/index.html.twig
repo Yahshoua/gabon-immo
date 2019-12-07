@@ -165,7 +165,7 @@ form[name=appartement] {
                         {% endverbatim %}
                     </div>
                     <div class="column is-4">
-                        {{ form_row(form.quartier, {'attr': {'ng-class': "[{'input is-danger': adresse, 'input': 'true'}]"}}) }}
+                        {{ form_row(form.numero, {'attr': {'ng-class': "[{'input is-danger': adresse, 'input': 'true'}]"}}) }}
                     </div>
                     <div class="column is-4">
                         {{ form_row(form.ville, {'attr': {'ng-class': "[{'input is-danger': ville, 'input': 'true'}]"}}) }}
@@ -236,6 +236,9 @@ form[name=appartement] {
                     </div>
                     <div class="column is-12" style="display: grid">
                         {{form_row(form.tags, {'attr': {'id': 'tags'}})}}
+                    </div>
+                    <div class="column is-12" style="display: grid">
+                        {{form_row(form.commentaire)}}
                     </div>
                     <div class="column is-12" style="dispaly: grid">
                         <label>Ajouter une photo de votre bien (facultatif)</label>
