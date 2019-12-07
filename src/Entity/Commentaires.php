@@ -41,11 +41,7 @@ class Commentaires
      */
     private $createdAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Appartement")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $appartement;
+
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -56,6 +52,11 @@ class Commentaires
      * @ORM\Column(type="string", length=255)
      */
     private $titre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Appartement", inversedBy="comments")
+     */
+    private $appartement;
 
     public function getId(): ?int
     {
@@ -122,18 +123,6 @@ class Commentaires
         return $this;
     }
 
-    public function getAppartement(): ?Appartement
-    {
-        return $this->appartement;
-    }
-
-    public function setAppartement(?Appartement $appartement): self
-    {
-        $this->appartement = $appartement;
-
-        return $this;
-    }
-
     public function getVotes(): ?int
     {
         return $this->votes;
@@ -154,6 +143,18 @@ class Commentaires
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getAppartement(): ?Appartement
+    {
+        return $this->appartement;
+    }
+
+    public function setAppartement(?Appartement $appartement): self
+    {
+        $this->appartement = $appartement;
 
         return $this;
     }

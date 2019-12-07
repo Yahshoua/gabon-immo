@@ -24,7 +24,7 @@ class AppartementRepository extends ServiceEntityRepository
         public function findByAnnexes($value, $id)
         {
             return $this->createQueryBuilder('a')
-                ->Where('a.Category =:val')
+                ->Where("a.category =:val")
                 ->andWhere('a.id !=:id')
                 ->setParameter('val', $value)
                 ->setParameter('id', $id)

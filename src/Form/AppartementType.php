@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -36,10 +37,10 @@ class AppartementType extends AbstractType
                     'class'=> 'input'
                 ]
             ])
-            ->add('quartier', TextType::class, [
-                'label'=> 'Adresse',
+            ->add('numero', TextType::class, [
+                'label'=> 'Numéro',
                 'attr'=> [
-                    'placeholder'=> 'Adresse de votre bien',
+                    'placeholder'=> 'votre numéro Tél',
                     'class'=> 'input'
                 ]
             ])
@@ -55,6 +56,13 @@ class AppartementType extends AbstractType
                     'placeholder'=> 'exemple: 2012',
                     'class'=> 'input',
                     'min'=> 1000
+                ]
+            ])
+            ->add('commentaire', TextareaType::class, [
+                'label'=> 'Decrivez votre bien immobilier (facultatif)',
+                'attr'=> [
+                    'placeholder'=> 'exemple: je mets en vente ma maison, situé à Batavéa...',
+                    'class'=> 'textarea'
                 ]
             ])
             ->add('douches', NumberType::class, [
@@ -138,17 +146,17 @@ class AppartementType extends AbstractType
                 ]
             ])
             ->add('Types', EntityType::class, [
-                'label'=> 'Type de maison',
+                'label'=> 'Type de votre bien',
                 'class'=> Types::class,
                 'choice_label'=> 'types',
                 'multiple'=> true,
                 'attr'=> [
-                    'placeholder'=> 'exemple: Duplex',
+                    'placeholder'=> 'exemple: je vends',
                     'class'=> 'input myType'
                 ]
             ])
             ->add('Category', EntityType::class, [
-                'label'=> 'Categorie de votre Maison',
+                'label'=> 'Categorie de votre bien',
                 'class'=> Category::class,
                 'choice_label'=> 'label',
                 'attr'=> [

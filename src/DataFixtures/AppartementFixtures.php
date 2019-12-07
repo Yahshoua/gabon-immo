@@ -3,11 +3,9 @@
 namespace App\DataFixtures;
 use App\Entity\Auteur;
 use App\Entity\Photos;
-use App\Entity\Category;
 use Faker\Factory as fk;
 use App\Entity\Appartement;
 use App\Repository\AuteurRepository;
-use App\Repository\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -16,8 +14,7 @@ class AppartementFixtures extends Fixture
     private $cate;
     private $type;
     private $auteur;
-    public function __construct(CategoryRepository $cate,  AuteurRepository  $auteur) {
-        $this->cate = $cate;
+    public function __construct(  AuteurRepository  $auteur) {
         $this->type = $type;
         $this->auteur = $auteur;
     }
@@ -30,7 +27,6 @@ class AppartementFixtures extends Fixture
             // $pickType = $this->type->find(1);
             // $pickCate = $this->cate->find(1);
             // $pickAuteur = $this->auteur->find(3);
-            $pickCate = new Category();
             $photo = new Photos();
             $photo->setImage($faker->imageUrl);
             $pickCate->setLabel($faker->word(mt_rand(1, 5), true));
@@ -44,7 +40,7 @@ class AppartementFixtures extends Fixture
                 $spec[] = $word;
             } 
             $appartement->setTitle($faker->words(3, true))
-                        ->setQuartier($faker->address)
+                        ->setNumero($faker->address)
                         ->setPrix($faker->numberBetween(100, 1000))
                         ->setCreatedAt($faker->dateTime)
                         ->setVille($faker->city)
@@ -62,8 +58,7 @@ class AppartementFixtures extends Fixture
                         ->setBalcons($faker->randomDigit)
                         ->setCuisines($faker->randomDigit)
                         ->setassurance($faker->boolean)
-                        ->setAuteur($pickAuteur)
-                        ->setCategory($pickCate);
+                        ->setAuteur($pickAuteur);
                         $photo->setAppartement($appartement);
                         $manager->persist($appartement);
                         $manager->persist($pickType);

@@ -51,7 +51,7 @@ class Appartement
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $quartier;
+    private $numero;
 
     /**
      * @ORM\Column(type="integer")
@@ -125,11 +125,6 @@ class Appartement
      *
      * @var \DateTime
      */
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
-     * 
-     */
-    private $Category;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Types", inversedBy="appartement")
@@ -149,11 +144,27 @@ class Appartement
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="appartement")
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaires", mappedBy="appartement")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->types = new ArrayCollection();
         $this->photographies = new ArrayCollection();
         $this->image = new EmbeddedFile();
+        $this->comments = new ArrayCollection();
     }
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -225,14 +236,14 @@ class Appartement
     {
         $this->photographies->removeElement($photo);
     }
-    public function getQuartier(): ?string
+    public function getNumero(): ?string
     {
-        return $this->quartier;
+        return $this->numero;
     }
 
-    public function setQuartier(string $quartier): self
+    public function setNumero(string $numero): self
     {
-        $this->quartier = $quartier;
+        $this->numero = $numero;
 
         return $this;
     }
@@ -416,19 +427,6 @@ class Appartement
 
         return $this;
     }
-   
-    public function getCategory(): ?Category
-    {
-        return $this->Category;
-    }
-
-    public function setCategory(?Category $Category): self
-    {
-        $this->Category = $Category;
-
-        return $this;
-    }
-    
 
     /**
      * @return Collection|Types[]
@@ -483,6 +481,61 @@ class Appartement
             // set the owning side to null (unless already changed)
             if ($photography->getAppartement() === $this) {
                 $photography->setAppartement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaires[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Commentaires $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAppartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Commentaires $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAppartement() === $this) {
+                $comment->setAppartement(null);
             }
         }
 

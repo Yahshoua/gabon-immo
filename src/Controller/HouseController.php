@@ -31,6 +31,7 @@ class HouseController extends AbstractController
         // Publier 1 commentaire
         $comment = new Commentaires();
         $find= $this->appart->find($id);
+        
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,6 +39,11 @@ class HouseController extends AbstractController
                     ->setAppartement($find);
             $manager->persist($comment);
             $manager->flush();
+            $comments = $find->getComments()->last();
+            dump($comments);
+            return $this->render('immo/commentaires.html.twig',[
+                'commentaires'=> $comments
+            ]);
         }
         // Publier une reservation
         $reservation = new Reservation();
@@ -45,14 +51,15 @@ class HouseController extends AbstractController
         $form2->handleRequest($request);
         // fin
         //Find By categorie
-        dump($find->getCategory()->getId());
-       $e = $appartement->findByAnnexes($find->getCategory()->getId(), $id);
-       dump($find);
+       $IDAp =  $find->getCategory()->getId();
+       $e = $appartement->findByAnnexes($IDAp, $id);
+       dump($e);
         return $this->render('immo/index.html.twig', [
             'houses'=> $find,
             'form'=>  $form->createView(),
             'form2'=> $form2->createView(),
-            'annexes'=> $e
+             'annexes'=> $e,
+             'count'=> $find->getComments()->count()
         ]);
     }
 }
