@@ -31,7 +31,7 @@ class HouseController extends AbstractController
         // Publier 1 commentaire
         $comment = new Commentaires();
         $find= $this->appart->find($id);
-        
+        dump($find);
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

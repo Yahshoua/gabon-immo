@@ -47,6 +47,9 @@ class PublishController extends AbstractController
        $form = $this->createForm(AppartementType::class, $appart, ['action'=> $this->generateUrl('publish')]);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            if(false === $form->isValid()){
+                return $form->getError();
+            }
             $appart->setPrix(intval($request->get('montant')))
                     ->setCreatedAt(new \DateTime());
            // $tag1->setAppartement($appart);

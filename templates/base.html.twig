@@ -17,6 +17,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
         <script src="http://127.0.0.1:8000/js/select2.js"></script>
         <script src="http://127.0.0.1:8000/js/angular.js"></script>
+        <script type="text/javascript" src="http://127.0.0.1:8000/js/lightgallery.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/lightgallery.css">
+        <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-thumbnail.js"></script>
+        <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-fullscreen.js"></script>
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
@@ -215,6 +219,10 @@
                   $notification.parentNode.removeChild($notification);
                 });
               });
+              lightGallery(document.getElementById('lightgallery'));
+              $('.viewgal').on('click',function(){
+                $("#gal").click()
+              })
                 // codes pour ajouter et supprimer des photos
               var $newLinkLi = $('.photogrphy')
               $collectionHolder = $("div.photographies");

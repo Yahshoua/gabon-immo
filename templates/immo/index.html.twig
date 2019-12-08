@@ -58,7 +58,7 @@ body {
         position: absolute;
         width: 25%;
         background: #fff;
-        top: 324px;
+        top: 10px;
         right: 0;
         left: 943px;
         border-radius: 8px 8px 0 0
@@ -130,35 +130,80 @@ body {
                 <h2 class="title has-text-white is-1">  {{ houses.title }} </h2>
             </div>
             <div style="width: 20%">
-                <a class="button is-light">
+                <a class="button is-light viewgal">
                     <span class="icon">
                     <i class="fas fa-camera-retro" style="font-size: 18px;"></i>
                     </span>
-                    <span>Voir la galerie d'image</span>
+                    <span>Voir la galerie d'image/{{houses.photographies.count}}</span>
                 </a>
             </div>
         </div>
     </div>
     <br>
-    <div class="columns" style="flex-wrap: wrap;">
+    <div class="columns" style="flex-wrap: wrap;position: relative">
         <div class="column is-7" style="margin-left: 11rem;">
-            {# <div style="background: url('{{ houses.thumbnail }}') center no-repeat;background-size: cover;height: 400px;width: 702px">
+                <div class="columns" style="flex-wrap: wrap;">
+                    {% if houses.image.name %}
+                        
+                            <div class="column is-12">
+                                <div style="background:url('{{ vich_uploader_asset(houses, 'imageFile') }}') center no-repeat;background-size: cover;height: 400px;width: 702px">
 
-            </div> #}
-            <p style="margin-right: 13rem;text-align: justify;">
+                                </div>
+                            </div>
+                        {% else %}
+                                    <div class="column is-12">
+                                        <div style="background: url('../images/home.png') center no-repeat;background-size: 37%;background-color: #69696961;height: 400px;width: 702px">
+
+                                        </div>
+                                    </div>
+                                
+                        {% endif %}
+                   {% if houses.photographies %}
+                   <div class="column is-12">
+                        <div id="lightgallery">
+                            {% for photo in houses.photographies %}
+                                <a href="../images/appart/{{photo.image.name}}">
+                                    <img id="gal" src="../images/appart/{{photo.image.name}}" style="width:200px;height:120px"/>
+                                </a>
+                            {% endfor %}
+                        </div>
+                   </div>
+                    
+                    {% endif %}     
+                </div>
+              
+            <p style="margin-right: 4rem;text-align: justify;">
                 {{houses.commentaire}}
             </p>
         </div>
         <div class="column is-5">
-
+          
         </div>
-    </div>
-    <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem;">
-        <div class="column is-6" style="">
-            <div class="columns">
-            <div class="column is-12">
-                    <h2 class="title is-4 h-spec">Specification</h2>
+        {#  #}
+            <div class="bloc-reservation">
+            <div class="hd-price">
+                <div>
+                    <span class="title"> <b class="prices">$120</b> <sub> Per Day </sub>  </span>
+                </div>
+                <div>
+                    <span class="title"> <b class="prices"> $899 </b>  <sub> Per month </sub>  </span>
+                </div>
             </div>
+            <div style="padding: 3ex">
+                {{form_start(form2, {'attr': {'class': 'reserve'} } )}}
+                {{ form_widget(form2) }}
+                {{form_end(form2)}}
+            </div>
+             <input type="submit" class="btn-reserve" value="Reservation instantanée">
+        </div>
+        {#  #}
+    </div>
+    <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;width: 100%">
+        <div class="column is-7" style="">
+            <div class="columns">
+                <div class="column is-12">
+                        <h2 class="title is-4 h-spec" style="width: 93%;">Specifications</h2>
+                </div>
             </div>
             <div class="columns col-list-spec" style="flex-wrap: wrap;margin-left: -6px;">
                 <div class="column is-4">
@@ -202,17 +247,17 @@ body {
                 </div>
             </div>
         </div>
-        <div class="column is-6">
+        <div class="column is-5">
            
         </div>
     </div>
-    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
-        <div class="column is-6" >
+    <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-7" >
              <div>
-                <h2 class="title is-4 h-spec">Caractéristiques</h2>
+                <h2 class="title is-4 h-spec" style="width: 93%">Caractéristiques</h2>
             </div>
         </div>
-        <div class="column is-6" >
+        <div class="column is-5" >
             
         </div>
     </div>
@@ -228,13 +273,15 @@ body {
         </div>
     </div>
     <section ng-controller="formController">
-    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
-        <div class="column is-6" >
-             <div>
-                <h2 class="title is-4 h-spec">Commentaires:{{count}}</h2>
+    <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+        {% if count > 0 %}
+            <div class="column is-7" >
+                <div>
+                    <h2 class="title is-4 h-spec" style="width: 93%">Commentaires:{{count}}</h2>
+                </div>
             </div>
-        </div>
-        <div class="column is-6" >
+        {% endif %}
+        <div class="column is-5" >
             
         </div>
     </div>
@@ -263,13 +310,13 @@ body {
                 </div>
             {% endfor %}
             </section>
-     <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
-        <div class="column is-6" >
+     <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+        <div class="column is-7" >
              <div>
-                <h2 class="title is-4 h-spec">Faire un commentaire</h2>
+                <h2 class="title is-4 h-spec" style="width: 93%">Faire un commentaire</h2>
             </div>
         </div>
-        <div class="column is-6" >
+        <div class="column is-5" >
             
         </div>
         <div class="column is-6 alert" ng-show="alert">
@@ -307,37 +354,25 @@ body {
         {{form_end(form)}}
          </div>
     </div>
-        <div class="bloc-reservation">
-            <div class="hd-price">
-                <div>
-                    <span class="title"> <b class="prices">$120</b> <sub> Per Day </sub>  </span>
-                </div>
-                <div>
-                    <span class="title"> <b class="prices"> $899 </b>  <sub> Per month </sub>  </span>
-                </div>
-            </div>
-            <div style="padding: 3ex">
-                {{form_start(form2, {'attr': {'class': 'reserve'} } )}}
-                {{ form_widget(form2) }}
-                {{form_end(form2)}}
-            </div>
-             <input type="submit" class="btn-reserve" value="Reservation instantanée">
-        </div>
+        
         <script>
             $(document).ready(function() {
                 $('.picked').pickadate()
             })
         </script>
-         <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
-        <div class="column is-6" >
-             <div>
-                <h2 class="title is-4 h-spec">Maisons&appartements connexes</h2>
+        {% if annexes %}
+            <div class="columns" style="margin-left: 11rem;margin-right: 11rem;margin-top: 1rem;flex-wrap: wrap">
+                <div class="column is-6" >
+                    <div>
+                        <h2 class="title is-4 h-spec">Maisons&appartements connexes</h2>
+                    </div>
+                </div>
+                <div class="column is-6" >
+                    
+                </div>
             </div>
-        </div>
-        <div class="column is-6" >
-            
-        </div>
-    </div>
+        {% endif %}
+         
 </section>
         <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem">
             {% for annexe in annexes %}
