@@ -50,7 +50,7 @@ class PublishController extends AbstractController
             if(false === $form->isValid()){
                 return $form->getError();
             }
-            $appart->setPrix(intval($request->get('montant')))
+            $appart->setPrix(intval($request->get('montant')).' '.$request->get('forfait'))
                     ->setCreatedAt(new \DateTime());
            // $tag1->setAppartement($appart);
            // var_dump($form->getData());
