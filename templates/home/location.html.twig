@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+body {
+        background:#e2e2e236
+}
+.custom {
+    position: relative;
+}
+.custom::after {
+    bottom: -15px;
+    height: 6px;
+    width: 21px;
+    content: "";
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    background-color:#00d1b2;
+}
+.prix {
+    margin-bottom: 0;
+    padding-top: 10px;
+    font-size: 43px;
+    color: #00d1b2;
+}
+.col-infos {
+    border-radius: 5px;
+    margin-left: -1px;
+    margin-right: 3px;
+    margin-top: 1px;
+    border: 1px solid #ececec;
+    height: 50px
+}
+.pika {
+    line-height: 25px;
+}
+.col {
+        border-right: 1px solid #eaeaea;
+            text-align: center;
+            line-height: 30px
+}
+</style>
+<div class="columns" style="flex-wrap: wrap;margin-top: 1%">
+        <div class="column is-12 is-offset-1">
+            <h1 class="title custom"> Biens à louer </h1>
+        </div>
+    {% for house in houses.appartement|reverse %}
+        <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+           <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;">
+                <div class="column is-6" style="display: grid">
+                    <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}"><h2 class="title"> {{house.title}} </h2></a>
+                    <p> {{house.ville}} </p>
+                    <h3 class="title prix"> {{house.prix}} </h3>
+                    <p> {{house.commentaire|truncate(215, true)}} </p>
+                    <div class="columns col-infos">
+                        <div class="column is-4 pika">
+                            <div class="col">
+                                <i class="fas fa-chart-area"></i> <span> {{house.surface}} m<sup>2</sup></span>
+                            </div>
+                            
+                        </div>
+                        <div class="column is-4 pika">
+                            <div class="col">
+                                <i class="fas fa-bed"></i> {{house.chambres}}
+                            </div>
+                           
+                        </div>
+                        <div class="column is-4 pika">
+                            <div style="text-align: center">
+                                <i class="fas fa-bath"></i> {{house.douches}}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% if house.image.name %}
+                   
+                    <div class="column is-6">
+                             <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}"><div style="background: url('{{ vich_uploader_asset(house, 'imageFile') }}') center no-repeat;background-size: cover;height: 318px;border-radius: 5px"></div></a>
+                        </div>
+                    
+                        {% else %}
+                    <div class="column is-6">
+                        <div style="background: url('../images/home.png') center no-repeat;background-size: 50%;height: 318px;border-radius: 5px 7px 0 0;background-color: aliceblue;"></div>
+                    </div>
+                {% endif %}
+           </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
