@@ -148,21 +148,17 @@ form[name=appartement] {
             {{ form_start(form, {'attr': {'id': 'form_person_edit'}}) }}
                 <h2 class="title is-3">Publiez votre bien immobilier</h2> <br>
                 <div class="columns" style="flex-wrap: wrap">
-                <div class="column is-12" ng-show="incomplet">
-                        <div class="notification is-danger">
-                            <button class="delete"></button>
-                            Remplissez les champs laissés en rouge / vide !
-                        </div>
-                </div>
+                            {% verbatim %}
+                            <div ng-bind-html="empty"></div>
+                            {% endverbatim %} 
+                            
+                        
                 <div class="column is-12" style="display: flex">
                 <h2 class="title is-4 myh"><i class="fas fa-clipboard-list"></i>  Infos utiles</h2>
                 
                 </div>
                     <div class="column is-4">
                         {{ form_row(form.title, {'attr': {'ng-model': 'model','ng-maxlength': 3,'ng-class': "[{'input is-danger': title, 'input': true}]"}}) }}
-                        {% verbatim %}
-                            <div class="counterText"> {{uncount}}/10 </div>
-                        {% endverbatim %}
                     </div>
                     <div class="column is-4">
                         {{ form_row(form.numero, {'attr': {'ng-class': "[{'input is-danger': adresse, 'input': 'true'}]"}}) }}
@@ -262,7 +258,7 @@ form[name=appartement] {
                                 {# <div class="photographies column is-12" data-prototype="{{ mycro.printStepPrototype(form.photographies.vars.prototype)|e('html_attr') }}"> #}
                             <div class="photographies column is-12" data-prototype="{{form_widget(form.photographies.vars.prototype)|e('html_attr')}}">
                                     <div class="buttons">
-                                        <button class="button is-primary is-light addTagButton"> <i class='fas fa-plus'></i> Ajouter des photos</button>
+                                        <button class="button is-primary is-light addTagButton" style="background:#8BC34A"> <i class='fas fa-plus'></i> Ajouter des photos</button>
                                     </div>
                                         {# {% for row in form.photographies %}{% endfor %} #}
                                 </div>
@@ -270,7 +266,7 @@ form[name=appartement] {
 
                           </div>  
                     <div  class="column is-12">
-                        <button type="submit" class="button is-primary submited">Publier</button>
+                        <button type="submit" class="button is-primary submited" ng-class="[{'is-loading': send}]">Publier</button>
                     </div>
                    
                     {{ form_end(form) }}

@@ -47,7 +47,7 @@ sup {
 </style>
 <div class="columns" style="flex-wrap: wrap;margin-top: 1%">
         <div class="column is-12 is-offset-1">
-            <h1 class="title custom"> Biens 
+           <h1 class="title custom"> Biens 
             {% if type == 'location' %}
             à louer 
             {% else %}
@@ -55,7 +55,24 @@ sup {
             {% endif %}
             </h1>
         </div>
-    {% for house in houses.appartement|reverse %}
+        {% if houses is empty %}
+           
+                
+            <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+                <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;height: 400px">
+                        <div class="column is-12" style="display: grid;text-align: center">
+                            <h2 class="title" style="font-size: 25px"> Désolé aucune recherche ne correspond à votre requete </h2>
+
+                        </div>
+                        <div style="text-align: center;width: 100%;">
+                           <a href="{{path('home')}}"><button class="button is-primary is-rounded" style="width: auto">Revenir à la page d'accueil</button></a>
+                            
+                        </div>
+                    </div>
+            </div>
+        {% else %}
+       
+    {% for house in houses|reverse %}
         <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
            <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;">
                 <div class="column is-6" style="display: grid">
@@ -98,5 +115,6 @@ sup {
            </div>
         </div>
     {% endfor %}
+{% endif %}
 </div>
 {% endblock %}

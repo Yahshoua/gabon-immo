@@ -27,8 +27,12 @@ class HomeController extends AbstractController
         $elm = $appart->find(1);
         $formContact = $this->createForm(GetTouchType::class);
         $formContact->handleRequest($request);
-        
-        dump($all);
+        if($request->request->count() >0) {
+            $type = $request->request->get('type');
+            $category = $request->request->get('category');
+            $key = $request->request->get('key');
+            return $this->redirectToRoute('recherche', ['type' => $type, 'category'=>$category, 'key'=>$key]);
+        }
         // $p=$elm->getTypes()->toArray();
         // dump($elm->getTypes()->toArray()[0]->getTypes());
         return $this->render('home/index.html.twig', [
@@ -44,7 +48,67 @@ class HomeController extends AbstractController
         $locationTypes = $types->findBy(['types'=> $type]);
         dump($locationTypes[0]);
         return $this->render('home/location.html.twig',[
-            'houses'=> $locationTypes[0]
+            'houses'=> $locationTypes[0],
+            'type'=> $type
+        ]);
+    }
+    /**
+     * @Route("/recherche/{type}/{category}/{key}", name="recherche")
+     */
+    public function search($type, $category, $key, AppartementRepository $appart) {
+        switch ($type) {
+            case 'vente':
+                $types = 2;
+                break;
+            case 'location':
+                $types = 1;
+                break;
+            }
+            switch ($category) {
+                case 'Appartement':
+                    $cat = 11;
+                    break;
+                case 'Studio':
+                    $cat = 4;
+                    break;
+                case 'Duplex':
+                        $cat = 12;
+                    break;
+                case 'Chambre':
+                        $cat = 13;
+                    break;
+                case 'Bureau':
+                        $cat = 10;
+                    break;
+                case 'Chambre américaine':
+                        $cat = 9;
+                    break;
+                case 'Fond de commerce':
+                        $cat = 2;
+                    break;
+                case 'Immeuble':
+                        $cat = 7;
+                    break;
+                case 'Local commercial':
+                        $cat = 6;
+                    break;
+                case 'Maison':
+                        $cat = 5;
+                    break;
+                case 'Villa':
+                        $cat = 3;
+                    break;
+                case 'Terrain':
+                        $cat = 1;
+                    break;
+                }
+                dump(intval($types));
+                dump(intval($cat));
+        $search = $appart->findByWord(intval($types), intval($cat), $key);
+        dump($search);
+        return $this->render('home/recherche.html.twig',[
+            'houses'=> $search,
+            'type'=> $type
         ]);
     }
 }

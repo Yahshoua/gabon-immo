@@ -74,9 +74,7 @@ body {
      .hd-price div {
         padding: 17px
     }
-    p {
-        font-family: 'ubuntu'!important
-    }
+ 
     .prices {
         font-family: 'Lato-Bold' !important;
          color: hsl(0, 0%, 100%) !important
@@ -125,7 +123,13 @@ body {
      .annex i {
             font-size: 14px !important;
     }
- 
+ .col-detail {
+     line-height: 14px;
+    margin-left: 6px;
+    padding: 6px;
+    font-size: 14px;
+    display: flex
+ }
 </style>
     <div class="col-head-immo" style="background:url('http://127.0.0.1:8000/images/duplex_house.jpg') center no-repeat;background-size: cover">
         <div style="display: flex;padding-top: 2rem;">
@@ -146,7 +150,17 @@ body {
     <div class="columns" style="flex-wrap: wrap;position: relative">
         <div class="column is-7" style="margin-left: 11rem;">
                 <div class="columns" style="flex-wrap: wrap;">
-                <div class="column is-12" style="display: -webkit-inline-box;">  <i class="fas fa-calendar-day" style="color: #00d1b2;font-size: 16px"></i> &nbsp <p>publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p> </div>
+                <div class="column is-12 col-detail">
+                        <div style="width: 40%">
+                            <i class="fas fa-calendar-day" style="color: #00d1b2;    font-size: 14px;
+    float: left;"></i> &nbsp <p style="margin-left: 5px;float: left;
+    margin-left: 5px;">publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p>
+                        </div>
+                        <div style="width: 50%">
+                            <i class="fas fa-mobile-alt" style="color: #00d1b2;font-size: 14px;float: left;"></i> &nbsp <p style="float: left;
+    margin-left: 5px;">{{houses.numero}}</p>
+                        </div>
+                </div>
                 <div class="column is-12" style="padding-top: 0">
                     {% if houses.image.name %}
                             
@@ -171,8 +185,14 @@ body {
                             {% endfor %}
                         </div>
                    </div>
-                    
-                    {% endif %}     
+                    {% endif %}
+                    <div class="column is-12">
+                        <h2 class="title" style="margin: 0">
+                            {{houses.prix}}
+                        </h2>
+                        <p>{{houses.ville}}</p>
+                        <span>{{houses.numero}}</span>
+                    </div>
                 </div>
               
             <p style="margin-right: 4rem;text-align: justify;">
@@ -186,10 +206,7 @@ body {
             <div class="bloc-reservation">
             <div class="hd-price">
                 <div>
-                    <span class="title"> <b class="prices">$120</b> <sub> Per Day </sub>  </span>
-                </div>
-                <div>
-                    <span class="title"> <b class="prices"> $899 </b>  <sub> Per month </sub>  </span>
+                    <span class="title" style="color: #fff;font-size: 25px;"> Nous contacter  </span>
                 </div>
             </div>
             <div style="padding: 3ex">
@@ -265,7 +282,7 @@ body {
         </div>
     </div>
     <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
-        <div class="column is-6">
+        <div class="column is-10">
             <div class="columns" style="flex-wrap: wrap">
                 {% for spec in houses.caracteristiques %}
                     <div class="column is-4">

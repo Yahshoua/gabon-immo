@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Appartement;
+use App\Entity\Types;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -33,6 +34,19 @@ class AppartementRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult()
             ;
+        }
+        public function findByWord($type, $cat, $word) {
+            return $this->createQueryBuilder('a')
+            ->join(Types::class, 't')
+            ->Where('t.id =:type')
+            ->andWhere('a.category =:cat')
+            ->andWhere('a.commentaire LIKE :word')
+            ->setParameter('type', $type)
+            ->setParameter('cat', $cat)
+            ->setParameter('word', '%'.$word.'%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
         }
     // /**
     //  * @return Appartement[] Returns an array of Appartement objects

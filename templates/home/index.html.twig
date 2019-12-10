@@ -93,39 +93,50 @@ color: #00c4a7
                     Trouvez le style d'appartement qu'il vaut faut et selon votre budget. Go !
                  </p>
                  <br>
+                 <form name="search" method="POST" action="">
                  <div class="columns" style="width: 70%;margin: auto">
-                    <div class="column is-3">
-                        <div class="control" style="width: 100%">
-                            <div class="select" style="width: 100%">
-                                <select style="width: 100%">
-                                <option>A vendre</option>
-                                <option>A louer</option>
-                                </select>
+                    
+                        <div class="column is-3">
+                            <div class="control" style="width: 100%">
+                                <div class="select" style="width: 100%">
+                                    <select name="type" style="width: 100%" required>
+                                    <option value="vente">A vendre</option>
+                                    <option value="location">A louer</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="column is-3">
-                        <div class="control" style="width: 100%">
-                            <div class="select" style="width: 100%">
-                                <select style="width: 100%">
-                                <option>Appartement</option>
-                                <option>Studio</option>
-                                <option>Duplex</option>
-                                <option>Chambre</option>
-                                </select>
-                            </div>
-                    </div>
-                    </div>
-                    <div class="column is-3">
-                        <div class="control">
-                                <input class="input" type="number" placeholder="Votre budget" min="0">
+                        <div class="column is-3">
+                            <div class="control" style="width: 100%">
+                                <div class="select" style="width: 100%">
+                                    <select name="category" style="width: 100%" required>
+                                        <option value="Appartement">Appartement</option>
+                                        <option value="Studio">Studio</option>
+                                        <option value="Duplex">Duplex</option>
+                                        <option value="Chambre">Chambre</option>
+                                        <option value="Bureau">Bureau</option>
+                                        <option value="Chambre américaine">Chambre américaine</option>
+                                        <option value="Fond de commerce">Fond de commerce</option>
+                                        <option value="Immeuble">Immeuble</option>
+                                        <option value="Local commercial">Local commercial</option>
+                                        <option value="Maison">Maison</option>
+                                        <option value="Villa">Villa</option>
+                                        <option value="Terrain">Terrain</option>
+                                    </select>
+                                </div>
                         </div>
+                        </div>
+                        <div class="column is-3">
+                            <div class="control">
+                                    <input class="input" name="key" type="text" placeholder="mot clé..." required>
+                            </div>
 
-                    </div>
-                    <div class="column is-3">
-                        <a class="button is-primary is-hovered" style="width: 100%">Rechercher</a>
-                    </div>
+                        </div>
+                        <div class="column is-3">
+                            <button type="submit" class="button is-primary is-hovered" style="width: 100%">Rechercher</button>
+                        </div>
                  </div>
+                 </form>
             </div>
 
         </div>

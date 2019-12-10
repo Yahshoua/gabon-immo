@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
         <script src="http://127.0.0.1:8000/js/select2.js"></script>
         <script src="http://127.0.0.1:8000/js/angular.js"></script>
+        <script src="http://127.0.0.1:8000/js/angular-sanitize.min.js"></script>
         <script type="text/javascript" src="http://127.0.0.1:8000/js/lightgallery.js"></script>
         <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/lightgallery.css">
         <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-thumbnail.js"></script>
@@ -275,7 +276,7 @@
                   //titi
                $("#toto").html($collectionHolder)
                 
-               var app = angular.module('myapp', [])
+               var app = angular.module('myapp', ['ngSanitize'])
               app.controller('formController', function($scope){
                     $('.comment').on('click', function(e) {
                         e.preventDefault()
@@ -340,57 +341,75 @@
                     
               })
                .controller("publishController",function($scope){
-                 $('.file-input').on('change', function() {
-                   var $container = $('div#appartement_photographies');
-                   var elm = $container.attr('data-prototype').replace(/__name__label__/g, 'Fichier n°').replace(/__name__/g,"index")
-                  console.log('eeh ',  $(elm))
-                 })
+               //  $('.file-input').on('change', function() {
+                  // var $container = $('div#appartement_photographies');
+                 //  var elm = $container.attr('data-prototype').replace(/__name__label__/g, 'Fichier n°')//.replace(/__name__/g,"index")
+                //  console.log('eeh ',  $(elm))
+                // })
                     $scope.max = 3
                     $scope.uncount = 10
-                    $('#appartement_imageFile').on('change', function($e) {
-                        var name = document.getElementById("appartement_imageFile").files[0]
-                        $(".file-name").html(name.name)
-                    })
-                    $('#appartement_title').keydown(function($e){
-                      var e = $('#appartement_title').val().length + 1
-                      var unicode=$e.charCode? $e.charCode : $e.keyCode
-                      console.log(unicode , 'e ', e)
-                      if(e >=1 && e <=10 && unicode == 8) {
-                        if($scope.uncount >= 10) return
-                          $scope.uncount++
-                      }
-                      if(unicode !==8 && e<=10 && e>0 ) {
-                        if($scope.uncount <= 0) return
-                          $scope.uncount--
-                      }
-                      $scope.uncount <= 0 ? $scope.title = true : $scope.title = false
-                          $scope.$apply()
+                    $(document).on('change', 'input[type="file"]', function(){
+                      var id = $(this).attr('id')
+                        var name = document.getElementById(id).files[0]
+                        console.log('nameee ', name, 'parent ', $(this).closest('.file-label'))
+                        $(this).closest('.has-name').find('.file-name').html(name.name)
                     })
                     $('.submited').on('click', function($e){
                     $e.preventDefault()
+                     hauteur=$(".navbar").offset().top;
                     var titre = $('#appartement_title').val()
                     var adresse = $('#appartement_numero').val()
                     var ville = $('#appartement_ville').val()
                     var prix = $('#prix').val()
                     console.log(titre.length)
-                    if(titre.length<= 0) {
+                    $scope.empty = `<div class='column is-12' ng-show='incomplet'>
+                        <div class='notification is-danger'>
+                            <button class='delete'></button>
+                                Remplissez les champs laissés en rouge / vide !
+                            </div>
+                      </div>`
+                      $scope.incomplet =  false
+                    if(titre.length<= 4) {
                       $scope.title = true
+                      $scope.incomplet = true
+                      $('html,body').animate({scrollTop:hauteur},1000);
+                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+                      $scope.$apply()
+                      return
                     }
                      $scope.incomplet = false
                     if(adresse.length<= 0) {
                       $scope.adresse = true
                       $scope.incomplet = true
+                      $('html,body').animate({scrollTop:hauteur},1000);
+                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+                      $scope.$apply()
+                      return
                     }
                     if(adresse.length<= 0) {
                       $scope.ville = true
                       $scope.incomplet = true
+                      $('html,body').animate({scrollTop:hauteur},1000);
+                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+                      $scope.$apply()
+                      return
                     }
                     if(prix.length<= 0) {
                       $scope.prix = true
                       $scope.incomplet = true
+                      $('html,body').animate({scrollTop:hauteur},1000);
+                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+                      $scope.$apply()
+                      return
                     }
+                    $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
+                    $scope.incomplet = false
+                    $scope.prix = false
+                    $scope.ville = false
+                     $scope.adresse = false
+                     $scope.title = false
                     $scope.$apply()
-                    
+                    $scope.send = true
                    $form =  $('#form_person_edit')
                    var formData = new FormData()
                    var myform = document.getElementById("form_person_edit")
@@ -403,13 +422,23 @@
                     xhr.upload.addEventListener("progress", onUploadProgress, false);
                     xhr.send(new FormData(myform));
                     function onRequestComplete() {
-
+                         $scope.send = false
+                         console.log('ok envoyé')
+                         $('html,body').animate({scrollTop:hauteur},1000);
+                         $scope.empty = `<div class='column is-12' ng-show='incomplet'>
+                        <div class='notification is-primary'>
+                            <button class='delete'></button>
+                                Votre annonce a été publié !
+                            </div>
+                      </div>`
+                      $scope.incomplet =  true
+                       $scope.$apply()
                     }
                     function onUploadComplete() {
-                      
+                         console.log('upload terminé !')
                     }
                     function onUploadProgress() {
-                      
+                       console.log('en cours d\'upload...')
                     }
                 })
                })
