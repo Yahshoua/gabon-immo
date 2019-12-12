@@ -26,7 +26,7 @@ body {
     bottom: -2px;
     width: 174px;
     height: 3px;
-    background: #00d1b2
+    background: #f74356
     }
     .col-list-spec .column {
         padding: 5px !important;
@@ -64,12 +64,12 @@ body {
         border-radius: 8px 8px 0 0
     }
     .hd-price {
-        background: #00d1b2;
+        background: #f74356;
         text-align: center;
         border-radius: 8px 8px 0 0;
     }
     .hd-price>div:first-of-type {
-        border-bottom: 1px solid #11e2c3;
+        border-bottom: 1px solid #f74356;
     }
      .hd-price div {
         padding: 17px
@@ -84,7 +84,7 @@ body {
          color: hsl(0, 0%, 100%) !important
     }
     .reserve {
-            line-height: 5rem;
+            line-height: 4rem;
     }
     .reserve input {
         padding-bottom: 22px;
@@ -94,7 +94,7 @@ body {
     .btn-reserve {
         width: 100%;
         padding: 30px;
-        background: #00d1b2;
+        background: #f74356;
         border: navajowhite;
         border-radius: 0 0 10px 10px;
         color: #fff;
@@ -130,9 +130,74 @@ body {
     font-size: 14px;
     display: flex
  }
+ #reservation div {
+     padding: 0
+ }
+.choco {
+        width: 40%;display: flex
+    }
+ .choco p {
+     margin-left: 5px;
+     float: left;
+ }
+ .coco {
+     display: flex;
+     padding-top: 2rem;
+ }
+ @media(max-width:1190px) {
+    .scale {
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    } 
+    .bloc-reservation {
+        display: none
+    }
+    .coco {
+        width: 80% !important;
+    }
+    .col-detail {
+        display: grid
+    }
+    .pain {
+        line-height: 14px;
+        margin-top: 10px;
+    }
+    .choco {
+            line-height: 11px;
+            width: 100%
+    }
+}
+.col-head-immo {
+    height: 130px;
+}
+ @media(max-width:556px) {
+    .title.is-1 {
+            font-size: 40px;
+    }
+    .coco {
+        display: grid
+    }
+    .col-head-immo {
+        height: 169px;
+    }
+    .button.is-light {
+        font-size: 12px
+    }
+    .coco div:nth-of-type(2) {
+        padding-left: 1rem;
+    }
+ }
+ @media(max-width: 375px) {
+     .choco {
+             width: 100%;
+     }
+     .col-head-immo {
+    height: 199px;
+}
+ }
 </style>
-    <div class="col-head-immo" style="background:url('http://127.0.0.1:8000/images/duplex_house.jpg') center no-repeat;background-size: cover">
-        <div style="display: flex;padding-top: 2rem;">
+    <div class="col-head-immo" style="background:url('http://127.0.0.1:8000/images/duplex_house.jpg') center no-repeat;background-size: cover;">
+        <div class="coco">
             <div style="width: 80%;padding-left: 1rem;">
                 <h2 class="title has-text-white is-1">  {{ houses.title }} </h2>
             </div>
@@ -148,34 +213,33 @@ body {
     </div>
     <br>
     <div class="columns" style="flex-wrap: wrap;position: relative">
-        <div class="column is-7" style="margin-left: 11rem;">
+        <div class="column is-7 scale" style="margin-left: 11rem;">
                 <div class="columns" style="flex-wrap: wrap;">
                 <div class="column is-12 col-detail">
-                        <div style="width: 40%">
-                            <i class="fas fa-calendar-day" style="color: #00d1b2;    font-size: 14px;
-    float: left;"></i> &nbsp <p style="margin-left: 5px;float: left;
-    margin-left: 5px;">publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p>
+                        <div class="choco">
+                            <i class="fas fa-calendar-day" style="color: #f74356;    font-size: 14px;
+    float: left;"></i> &nbsp <p>publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p>
                         </div>
-                        <div style="width: 50%">
-                            <i class="fas fa-mobile-alt" style="color: #00d1b2;font-size: 14px;float: left;"></i> &nbsp <p style="float: left;
+                        <div class="pain" style="width: 50%">
+                            <i class="fas fa-mobile-alt" style="color: #f74356;font-size: 14px;float: left;"></i> &nbsp <p style="float: left;
     margin-left: 5px;">{{houses.numero}}</p>
                         </div>
                 </div>
                 <div class="column is-12" style="padding-top: 0">
                     {% if houses.image.name %}
                             
-                                <div style="background:url('{{ vich_uploader_asset(houses, 'imageFile') }}') center no-repeat;background-size: cover;height: 400px;width: 702px">
+                                <div style="background:url('{{ vich_uploader_asset(houses, 'imageFile') }}') center no-repeat;background-size: cover;height: 400px;width: 93%">
 
                                 </div>
                         {% else %}
                                     
-                                        <div style="background: url('../images/home.png') center no-repeat;background-size: 37%;background-color: #69696961;height: 400px;width: 702px">
+                                        <div style="background: url('../images/home.png') center no-repeat;background-size: 37%;background-color: #69696961;height: 400px;width: 93%">
 
                                         
                                     </div>
                         {% endif %}
                         </div>
-                   {% if houses.photographies.count >0 %}
+                   {# {% if houses.photographies.count >0 %}
                    <div class="column is-12">
                         <div id="lightgallery">
                             {% for photo in houses.photographies %}
@@ -185,7 +249,7 @@ body {
                             {% endfor %}
                         </div>
                    </div>
-                    {% endif %}
+                    {% endif %} #}
                     <div class="column is-12">
                         <h2 class="title" style="margin: 0">
                             {{houses.prix}}
@@ -209,7 +273,7 @@ body {
                     <span class="title" style="color: #fff;font-size: 25px;"> Nous contacter  </span>
                 </div>
             </div>
-            <div style="padding: 3ex">
+            <div style="padding: 3ex;padding-bottom: 0;">
                 {{form_start(form2, {'attr': {'class': 'reserve'} } )}}
                 {{ form_widget(form2) }}
                 {{form_end(form2)}}
@@ -218,7 +282,7 @@ body {
         </div>
         {#  #}
     </div>
-    <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;width: 100%">
+    <div class="columns scale" style="flex-wrap: wrap;margin-left: 11rem;width: 100%">
         <div class="column is-7" style="">
             <div class="columns">
                 <div class="column is-12">
@@ -271,7 +335,7 @@ body {
            
         </div>
     </div>
-    <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+    <div class="columns scale" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
         <div class="column is-7" >
              <div>
                 <h2 class="title is-4 h-spec" style="width: 93%">Caractéristiques</h2>
@@ -281,7 +345,7 @@ body {
             
         </div>
     </div>
-    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+    <div class="columns scale" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
         <div class="column is-10">
             <div class="columns" style="flex-wrap: wrap">
                 {% for spec in houses.caracteristiques %}
@@ -293,7 +357,7 @@ body {
         </div>
     </div>
     <section ng-controller="formController">
-    <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+    <div class="columns scale" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
         {% if count > 0 %}
             <div class="column is-7" >
                 <div>
@@ -307,7 +371,7 @@ body {
     </div>
             <section id="commentaires">
             {% for comment in houses.comments|reverse %}
-                <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+                <div class="columns scale" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
                     <div class="column is-8">
                         <div class="col-comment">
                         <div class="thumb-avatar">
@@ -315,7 +379,7 @@ body {
                         </div>
                             <div class="col-ex" style="display: grid">
                                 <span>
-                                    <span style="float: left;font-size: 17px;font-weight: bold;color: #00d1b2"> 
+                                    <span style="float: left;font-size: 17px;font-weight: bold;color: #f74356"> 
                                     {{comment.nom}} {{comment.prenom}} </span>
                                     <span style="float: right;margin-right: 2rem;font-size: 12px;">{{comment.createdAt|ago }}</span>
                                 </span>
@@ -330,7 +394,7 @@ body {
                 </div>
             {% endfor %}
             </section>
-     <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+     <div class="columns scale" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
         <div class="column is-7" >
              <div>
                 <h2 class="title is-4 h-spec" style="width: 93%">Faire un commentaire</h2>
@@ -348,7 +412,7 @@ body {
     </div>
     
                 
-    <div class="columns" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
+    <div class="columns scale" style="margin-left: 11rem;margin-right: 11rem;flex-wrap: wrap;">
      {{ form_errors(form) }}
          <div class="column is-8">
                 {{form_start(form)}}
@@ -381,7 +445,7 @@ body {
             })
         </script>
         {% if annexes %}
-            <div class="columns" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
+            <div class="columns scale" style="margin-left: 11rem;width: 100%;margin-top: 1rem;flex-wrap: wrap">
                 <div class="column is-7" >
                     <div>
                         <h2 class="title is-4 h-spec"  style="width: 93%">Maisons&appartements connexes</h2>
@@ -394,7 +458,7 @@ body {
         {% endif %}
          
 </section>
-        <div class="columns" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem">
+        <div class="columns scale" style="flex-wrap: wrap;margin-left: 11rem;margin-right: 11rem">
             {% for annexe in annexes %}
             <div class="column is-4">
                 <a href="{{path('immo', {'title': annexe.slugs, 'id': annexe.id } )}}">
@@ -411,25 +475,25 @@ body {
                     <footer class="card-footer">
                       <div class="columns" style="font-family: 'ubuntu';flex-wrap: wrap;width: 100%;margin: 0"> 
                         <div class="column is-12 annex">
-                            <h4 class="title is-5" style="color: #000;text-align: left;color: #00d1b2;    margin-bottom: 0;"> {{annexe.title}} 
+                            <h4 class="title is-5" style="color: #000;text-align: left;color: #f74356;    margin-bottom: 0;"> {{annexe.title}} 
                                                     </h4>
                         </div>
                         
                        <div class="column is-6 annex" style="text-align: left;">
-                                <i class="fas fa-building" style="font-size: 12px;color: #00d1b2;"></i>
+                                <i class="fas fa-building" style="font-size: 12px;color: #f74356;"></i>
                                 <span style="font-family: ubuntu;"> {{annexe.category.label}} </span>
                             
                        </div>
                        
                             <div class="column is-6 annex">
-                               <i class="fas fa-phone-volume" style="color: #00d1b2;"></i> {{annexe.numero}}
+                               <i class="fas fa-phone-volume" style="color: #f74356;"></i> {{annexe.numero}}
                             </div>
                              <div class="column is-6 annex">
-                               <i class="fas fa-coins" style="color: #00d1b2;"></i> {{annexe.prix}}
+                               <i class="fas fa-coins" style="color: #f74356;"></i> {{annexe.prix}}
                             </div>
                             {% for type in annexe.types %}
                             <div class="column is-6 annex" style="padding-bottom: 11px;">
-                               <i class="fas fa-hand-holding-usd" style="color: #00d1b2;"></i> {{type.types}}
+                               <i class="fas fa-hand-holding-usd" style="color: #f74356;"></i> {{type.types}}
                             </div>
                             {% endfor %}
                             

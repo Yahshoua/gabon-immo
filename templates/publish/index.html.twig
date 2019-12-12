@@ -110,7 +110,7 @@ label {
     bottom: -12px;
     width: 140px;
     height: 3px;
-    background: #00d1b2;
+    background: #f74356;
 }
 .lign2::after {
         width: 182px;
@@ -131,9 +131,36 @@ form[name=appartement] {
     padding-top: 5rem;
 }
 .counterText {
-    color: #00d1b2;
+    color: #f74356;
     font-size: 12px;
     padding-left: 3px;
+}
+@media(max-width: 1308px) {
+    label {
+    white-space: normal;
+}
+}
+@media(max-width: 1170px) {
+        .col-publish {
+        margin-left: 1rem;
+    }
+        form[name=appartement] {
+        width: 100% !important;
+    }
+    label[for=appartement_annee] {
+        white-space: normal;
+    }
+}
+@media(max-width: 1302px){
+     .footer {
+        margin-top: 2rem;
+    }
+}
+@media(max-width: 768px){
+    .slide-ill {
+        display: none
+    }
+   
 }
 {# .file-label label {
     display: none
@@ -161,13 +188,13 @@ form[name=appartement] {
                         {{ form_row(form.title, {'attr': {'ng-model': 'model','ng-maxlength': 3,'ng-class': "[{'input is-danger': title, 'input': true}]"}}) }}
                     </div>
                     <div class="column is-4">
-                        {{ form_row(form.numero, {'attr': {'ng-class': "[{'input is-danger': adresse, 'input': 'true'}]"}}) }}
+                        {{ form_row(form.numero, {'attr': {'ng-class': "[{'input is-danger': adresse, 'input': 'true'}]"} }) }}
                     </div>
                     <div class="column is-4">
                         {{ form_row(form.ville, {'attr': {'ng-class': "[{'input is-danger': ville, 'input': 'true'}]"}}) }}
                     </div>
 
-                    <div class="column is-4">
+                    <div class="column is-6">
                         <label for="prix" class="required">Montant</label>
                         <div style="display: flex">
                             <div style="display: grid">
@@ -183,7 +210,7 @@ form[name=appartement] {
                         </div>
                         
                     </div>
-                    <div class="column is-8" id="myType">
+                    <div class="column is-6" id="myType">
                         {{ form_row(form.Types, {'attr': {'ng-class': "[{'input is-danger': true, 'input': 'true'}]"}}) }}
                     </div>
                     <div class="column is-12 mycat">

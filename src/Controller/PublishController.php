@@ -54,14 +54,10 @@ class PublishController extends AbstractController
                     ->setCreatedAt(new \DateTime());
            // $tag1->setAppartement($appart);
            // var_dump($form->getData());
-           
             $brr = $form->getData()->getTags();        
             $appart->setCaracteristiques(explode(',', $brr));
-            dump(  $brr);
-            dump( $appart->getCaracteristiques());
             $manager->persist($appart);
             $manager->flush();
-            
              return new JsonResponse([$appart->getCaracteristiques()], 201);
         }
         return $this->render('publish/index.html.twig', [

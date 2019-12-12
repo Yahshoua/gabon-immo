@@ -25,12 +25,6 @@ class GetTouche
      * @ORM\Column(type="string", length=255)
      */
     private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $adresse;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -40,6 +34,16 @@ class GetTouche
      * @ORM\Column(type="string", length=255)
      */
     private $message;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
 
     public function getId(): ?int
     {
@@ -70,18 +74,6 @@ class GetTouche
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
     public function getSujet(): ?string
     {
         return $this->sujet;
@@ -102,6 +94,30 @@ class GetTouche
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }

@@ -6,6 +6,10 @@
 body {
         background:#e2e2e236
 }
+.second-col {
+    padding-right: 15%;
+    margin-top: 1%;
+}
 .custom {
     position: relative;
 }
@@ -17,13 +21,13 @@ body {
     border-radius: 6px;
     position: absolute;
     left: 0;
-    background-color:#00d1b2;
+    background-color:#f74356;
 }
 .prix {
     margin-bottom: 0;
     padding-top: 10px;
     font-size: 43px;
-    color: #00d1b2;
+    color: #f74356;
 }
 .col-infos {
     border-radius: 5px;
@@ -44,25 +48,59 @@ body {
 sup {
     line-height: initial !important;
 }
+ @media(max-width: 768px){
+     .col-infos {
+         display: flex
+     }
+     .first-col {
+         padding-left: 5%;
+         padding-bottom: 7%
+     }
+     .second-col {
+         padding-right: 0
+     }
+ }
 </style>
 <div class="columns" style="flex-wrap: wrap;margin-top: 1%">
-        <div class="column is-12 is-offset-1">
-            <h1 class="title custom"> Biens 
+        <div class="column is-12 is-offset-1 first-col">
+            <h1 class="title custom">  
             {% if type == 'location' %}
-            à louer 
+             Biens à louer 
+            {% elseif type =='En vente' %}
+              Biens en vente 
             {% else %}
-                en vente 
+                Appartement en colocation
             {% endif %}
             </h1>
         </div>
+        {% if houses.appartement is empty %}
+            <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+                <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;height: 400px">
+                        <div class="column is-12" style="display: grid;text-align: center">
+                            <h2 class="title" style="font-size: 25px"> Désolé aucun resultat ! </h2>
+
+                        </div>
+                        <div style="text-align: center;width: 100%;">
+                           <a href="{{path('home')}}"><button class="button is-primary is-rounded" style="width: auto">Revenir à la page d'accueil</button></a>
+                            
+                        </div>
+                    </div>
+            </div>
+        {% else %}
     {% for house in houses.appartement|reverse %}
-        <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+        <div class="column is-12 is-offset-1 second-col">
            <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;">
                 <div class="column is-6" style="display: grid">
-                    <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}"><h2 class="title"> {{house.title}} </h2></a>
-                    <p> {{house.ville}} </p>
-                    <h3 class="title prix"> {{house.prix}} </h3>
-                    <p> {{house.commentaire|truncate(215, true)}} </p>
+                    <div  class="columns">
+                        <div class="column is-12">
+                            <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}"><h2 class="title"> {{house.title}} </h2></a>
+                            <p> {{house.ville}} </p>
+                            <h3 class="title prix"> {{house.prix}} </h3>
+                            <p> {{house.commentaire|truncate(215, true)}} </p>
+                        </div>
+                    </div>
+                    
+
                     <div class="columns col-infos">
                         <div class="column is-4 pika">
                             <div class="col">
@@ -92,11 +130,12 @@ sup {
                     
                         {% else %}
                     <div class="column is-6">
-                        <div style="background: url('../images/home.png') center no-repeat;background-size: 50%;height: 318px;border-radius: 5px 7px 0 0;background-color: aliceblue;"></div>
+                        <div style="background: url('../images/home.png') center no-repeat;background-size: 50%;height: 318px;border-radius: 5px 7px 0 0;background-color: #fff0fc;"></div>
                     </div>
                 {% endif %}
            </div>
         </div>
     {% endfor %}
+{% endif %}
 </div>
 {% endblock %}

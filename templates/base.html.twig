@@ -22,6 +22,7 @@
         <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/lightgallery.css">
         <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-thumbnail.js"></script>
         <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-fullscreen.js"></script>
+        
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
@@ -76,6 +77,9 @@
           <a class="navbar-item" href="{{path('location', {'type':'location'})}}">
             A louer
           </a>
+           <a class="navbar-item" href="{{path('location', {'type':'colocation'})}}">
+            En colocation
+          </a>
         </div>
       </div>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -97,7 +101,7 @@
       <div class="navbar-item">
         <div class="buttons">
           <a href="{{path('publish') }}" class="button is-primary">
-            <strong>Publier une annonce</strong>
+            <strong style="font-family: Lato-Bold;">Publier une annonce</strong>
           </a>
           <a class="button is-light">
             Se connecter
@@ -118,375 +122,17 @@
         {% block body %}{% endblock %}
         {% block footer %}
           <div class="footer">
-            <div class="columns" style="margin-left: 11rem !important;margin-right: 11rem !importan">
-              <div class="column is-3">
-                  <h3 class="title is-4">A propos de nous</h3>
-                <p style="margin-right: 5rem;text-align: justify;margin-top: 2rem">
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut du
-                  aute irure dolor in reprehenderit. Lorem ipsum dolor sit amet, ctetur elitse
-                  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-                </p>
-                <div style="margin-top: 1rem;line-height: 40px">
-                  <div class="list-items">
-                      <i class="fas fa-phone-volume"  aria-hidden="true"></i>
-                      <span>+212 06 38 02 51 33</span>
-                  </div>
-                  <div class="list-items">
-                      <i class="fa fa-envelope" aria-hidden="true" ></i>
-                      <span>yahanthony8@gmail.com</span>
-                  </div>
-                  <div class="list-items">
-                    <i class="fas fa-map-marker"></i>
-                    <span>Boulevard Ghandi</span>
-                  </div>
-                </div>
-                
-
-              </div>
-              <div class="column is-3">
-                  <h3 class="title is-4">Liens utiles</h3>
-                  <div style="margin-top: 1rem;line-height: 40px">
-                  <div class="list-items">
-                      
-                      <span>A propos de nous</span>
-                  </div>
-                  <div class="list-items">
-                 
-                      <span>Blog</span>
-                  </div>
-                  <div class="list-items">
-                    
-                    <span>Service</span>
-                  </div>
-                  <div class="list-items">
-                    
-                    <span>Nous contacter</span>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-3">
-                  <h3 class="title is-4">LOUEZ AVEC NOUS</h3>
-                  <div style="margin-top: 1rem;line-height: 40px">
-                  <div class="list-items">
-                      <span>Louer une maison</span>
-                  </div>
-                  <div class="list-items">
-                      <span>Reserver maintenant</span>
-                  </div>
-                  <div class="list-items">
-                    <span>Reservez votre chambre</span>
-                  </div>
-                  <div class="list-items">
-                    <span>Acheter votre maison</span>
-                  </div>
-                </div>
-              </div>
-              <div class="column is-3">
-                  <h3 class="title is-4" style="margin-left: 24px;"> Dernieres News</h3>
-                  <div>
-                      <div id="slider1">
-                        
-                        <div class="viewport">
-                          <a class="buttons prev" href="#"><</a>
-                            <ul class="overview">
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                              <li><img src="http://lorempixel.com/400/200/sports/" /></li>
-                            </ul>
-                          <a class="buttons next" href="#">></a>
-                        </div>
-                        
-                      </div>
+              <div class="columns">
+                  <div class="column is-12">
+                    <div style="display: flex">
+                      <img src="http://127.0.0.1:8000/images/home.png" width="50px" height="50px">
+                      <span style="color: #fff;line-height: 50px;">by Mitashi Otha {{ "now"|date("Y") }} &copy </span>
+                    </div>
                   </div>
               </div>
-            </div>
           </div>
+          <script type="text/javascript" src="http://127.0.0.1:8000/js/app.js"></script>
         {% endblock %}
     </body>
+    
 </html>
- <script>
-            (function(){
-              // setup an "add a tag" link
-              
-              (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-                $notification = $delete.parentNode;
-                $delete.addEventListener('click', () => {
-                  $notification.parentNode.removeChild($notification);
-                });
-              });
-              lightGallery(document.getElementById('lightgallery'));
-              $('.viewgal').on('click',function(){
-                $("#gal").click()
-              })
-                // codes pour ajouter et supprimer des photos
-              var $newLinkLi = $('.photogrphy')
-              $collectionHolder = $("div.photographies");
-               $collectionHolder.find('.photogrphy').each(function() {
-                 addTagFormDeleteLink($(this));
-              });
-              $collectionHolder.data('index', $collectionHolder.find(':input').length);
-               $(".addTagButton").on('click', function(e) {
-                  e.preventDefault()
-                    // add a new tag form (see next code block)
-                    addTagForm($collectionHolder, $newLinkLi);
-                });
-                  //
-                    function addTagForm($collectionHolder, $newLinkLi) {
-                      // Get the data-prototype explained earlier
-                      var prototype = $collectionHolder.data('prototype');
-
-                      // get the new index
-                      var index = $collectionHolder.data('index');
-
-                      var newForm = prototype;
-                      // You need this only if you didn't set 'label' => false in your tags field in TaskType
-                      // Replace '__name__label__' in the prototype's HTML to
-                      // instead be a number based on how many items we have
-                      // newForm = newForm.replace(/__name__label__/g, index);
-
-                      // Replace '__name__' in the prototype's HTML to
-                      // instead be a number based on how many items we have
-                      newForm = newForm.replace(/__name__/g, index);
-
-                      // increase the index with one for the next item
-                      $collectionHolder.data('index', index + 1);
-
-                      // Display the form in the page in an li, before the "Add a tag" link li
-                      var $newFormLi = $(newForm);
-                      $newLinkLi.before($newFormLi);
-                      // ajouter un lien de supprimer de la nouvelle form li
-                        addTagFormDeleteLink($newFormLi);
-                    }
-                    function addTagFormDeleteLink($tagFormLi) {
-                      console.log( $tagFormLi)
-                    var $removeFormButton = $('<div class="buttons" style="margin-top:5px"><button class="button is-danger is-light is-small"" type="button">Supprimer la photo</button></div>');
-                     $tagFormLi.append($removeFormButton);
-
-                    $removeFormButton.on('click', function(e) {
-                        // remove the li for the tag form
-                        e.preventDefault()
-                       $tagFormLi.remove();
-                       $('.slide-ill').css('height', $('.col-publish').height() - $('.navbar').height() + 'px' )
-                    });
-                    $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                }
-                  //titi
-               $("#toto").html($collectionHolder)
-                
-               var app = angular.module('myapp', ['ngSanitize'])
-              app.controller('formController', function($scope){
-                    $('.comment').on('click', function(e) {
-                        e.preventDefault()
-                        var form = $('form[name="form_comment"]').serialize()
-                        var titre = $(this).attr('titre')
-                        var id = $(this).attr('id')
-                        var link = `${titre}-${id}`
-                        console.log(link)
-                        $scope.alert = false
-                        if($("#form_comment_textes").val()== '') {
-                            $scope.message = true
-                            $scope.alert = true
-                             $scope.$apply()
-                            return
-                        }
-                        $scope.message = false
-                        if($("#form_comment_nom").val()== '') {
-                            $scope.nom = true
-                            $scope.alert = true
-                             $scope.$apply()
-                            return
-                        }
-                        $scope.nom = false
-                         if($("#form_comment_prenom").val()== '') {
-                            $scope.prenom = true
-                            $scope.alert = true
-                             $scope.$apply()
-                            return
-                        }
-                        $scope.prenom = false
-                         if($("#form_comment_email").val()== '') {
-                            $scope.email = true
-                            $scope.alert = true
-                             $scope.$apply()
-                            return
-                        }
-                        $scope.email = false
-                        if($("#form_comment_titre").val()== '') {
-                            $scope.titre = true
-                            $scope.alert = true
-                             $scope.$apply()
-                            return
-                        }
-                        $scope.titre = false
-                        $scope.alert = false
-                        $scope.send = true
-                        $scope.$apply()
-                        $("#form_comment_textes, #form_comment_titre,#form_comment_email,#form_comment_prenom, #form_comment_nom").val('')
-                        setTimeout(function(){
-                          $.ajax({
-                            method: 'POST',
-                            url:`${titre}-${id}`,
-                            data: form
-                          }).done(function(data) {
-                              $("#commentaires").prepend(data)
-                               $scope.send = false
-                                $scope.$apply()
-                          })
-                          }, 3000)
-                        
-                    })
-                    
-              })
-               .controller("publishController",function($scope){
-               //  $('.file-input').on('change', function() {
-                  // var $container = $('div#appartement_photographies');
-                 //  var elm = $container.attr('data-prototype').replace(/__name__label__/g, 'Fichier n°')//.replace(/__name__/g,"index")
-                //  console.log('eeh ',  $(elm))
-                // })
-                    $scope.max = 3
-                    $scope.uncount = 10
-                    $(document).on('change', 'input[type="file"]', function(){
-                      var id = $(this).attr('id')
-                        var name = document.getElementById(id).files[0]
-                        console.log('nameee ', name, 'parent ', $(this).closest('.file-label'))
-                        $(this).closest('.has-name').find('.file-name').html(name.name)
-                    })
-                    $('.submited').on('click', function($e){
-                    $e.preventDefault()
-                     hauteur=$(".navbar").offset().top;
-                    var titre = $('#appartement_title').val()
-                    var adresse = $('#appartement_numero').val()
-                    var ville = $('#appartement_ville').val()
-                    var prix = $('#prix').val()
-                    console.log(titre.length)
-                    $scope.empty = `<div class='column is-12' ng-show='incomplet'>
-                        <div class='notification is-danger'>
-                            <button class='delete'></button>
-                                Remplissez les champs laissés en rouge / vide !
-                            </div>
-                      </div>`
-                      $scope.incomplet =  false
-                    if(titre.length<= 4) {
-                      $scope.title = true
-                      $scope.incomplet = true
-                      $('html,body').animate({scrollTop:hauteur},1000);
-                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                      $scope.$apply()
-                      return
-                    }
-                     $scope.incomplet = false
-                    if(adresse.length<= 0) {
-                      $scope.adresse = true
-                      $scope.incomplet = true
-                      $('html,body').animate({scrollTop:hauteur},1000);
-                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                      $scope.$apply()
-                      return
-                    }
-                    if(adresse.length<= 0) {
-                      $scope.ville = true
-                      $scope.incomplet = true
-                      $('html,body').animate({scrollTop:hauteur},1000);
-                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                      $scope.$apply()
-                      return
-                    }
-                    if(prix.length<= 0) {
-                      $scope.prix = true
-                      $scope.incomplet = true
-                      $('html,body').animate({scrollTop:hauteur},1000);
-                      $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                      $scope.$apply()
-                      return
-                    }
-                    $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-                    $scope.incomplet = false
-                    $scope.prix = false
-                    $scope.ville = false
-                     $scope.adresse = false
-                     $scope.title = false
-                    $scope.$apply()
-                    $scope.send = true
-                   $form =  $('#form_person_edit')
-                   var formData = new FormData()
-                   var myform = document.getElementById("form_person_edit")
-                   //formData.append("appartement[imageFile]",  document.getElementById("appartement_imageFile").files[0])
-                   //formData.append("appartement", $('#form_person_edit').serialize())
-                   var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "{{path('publish') }}");
-                    xhr.addEventListener('load', onRequestComplete, false);
-                    xhr.upload.addEventListener("load", onUploadComplete, false);
-                    xhr.upload.addEventListener("progress", onUploadProgress, false);
-                    xhr.send(new FormData(myform));
-                    function onRequestComplete() {
-                         $scope.send = false
-                         console.log('ok envoyé')
-                         $('html,body').animate({scrollTop:hauteur},1000);
-                         $scope.empty = `<div class='column is-12' ng-show='incomplet'>
-                        <div class='notification is-primary'>
-                            <button class='delete'></button>
-                                Votre annonce a été publié !
-                            </div>
-                      </div>`
-                      $scope.incomplet =  true
-                       $scope.$apply()
-                    }
-                    function onUploadComplete() {
-                         console.log('upload terminé !')
-                    }
-                    function onUploadProgress() {
-                       console.log('en cours d\'upload...')
-                    }
-                })
-               })
-                
-              //
-              var taged = new Array();
-              $('#myType div:first-of-type, .mycat div:first-of-type').css('display', 'grid')
-              $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
-              $("#appartement_Category").select2()
-              $('#appartement_Types').select2({
-                maximumSelectionLength: 2
-              }) 
-              toto = null
-                var $input = $('input[id=appartement_tags]')
-                    .tagify({
-                    whitelist : [
-                    ],
-                    maxTags: 5
-                })
-                .on('add', function(e, tagName){
-                    console.log('JQEURY EVENT: ', 'added', tagName)
-                    toto = tagName;
-                    taged.push(tagName.data.value)
-                    $('input[id=appartement_tags]').val(taged)
-                    $.ajax({
-                      url: "{{path('publish') }}",
-                      method: "POST",
-                      dataType: "JSON",
-                      data: {tag: taged}
-                    }).done(function(){
-
-                    }).fail(function(err){
-                        console.log('erreur ', err);
-                    })
-                })
-                .on('remove', function(e, tagName){
-                  console.log('JQEURY EVENT: ', 'remove', tagName)
-                  var index = tagName.index
-                  // recup l index
-                  taged.splice(index, 1)
-                  console.log('tagName ', taged)
-                })
-                .on('invalid', function(e, tagName) {
-                    console.log('JQEURY EVENT: ',"invalid", e, ' ', tagName);
-                });
-                    var jqTagify = $input.data('tagify');
-                    $('.tags-jquery--removeAllBtn').on('click', 
-                    jqTagify.removeAllTags.bind(jqTagify)
-                    )
-                })()
-          </script>

@@ -61,35 +61,67 @@ h1, h2, h3, h4 {
         border-radius: 10px 10px 0 0;
 }
 .btn-contact {
-    padding: 28px;
     width: 100%;
     border-radius: 0 0 10px 10px;
     border: none;
-    background: #00c4a7;
     font-size: 12pt;
     color: #fff;
     font-family: 'ubuntu' !important;
+    padding-top: 5%;
+    padding-bottom: 10%;
+    background: #f743569c;
 }
 .btn-contact:hover {
-    background: #14e2c4;
-    cursor: pointer
+    background: #f74356;
+    cursor: pointer;
+    color: #fff
 }
 .list-items {
-            
+            display: flex
           }
 .col-contact .list-items i {
 font-size: 24px;
 margin-right: 7px;
-color: #00c4a7
+}
+
+@media(max-width: 500px){
+     .delimiter {
+        background-size: 50%;
+    }
+        .child-paralax h1 {
+        margin-top: 2ex !important;
+    }
+        .text-info-site {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+        .delimiter {
+        background-size: 70%;
+    }
+    .full-paralax {
+        height: 616px;
+    }
+    form[name=search] div:firt-of-type {
+        width: 100% !important;
+    }
+    .title.is-1 {
+            font-size: 2rem;
+    }
+    .text-modern-house p {
+        font-size: 12pt;
+    }
+}
+.button.is-loading {
+    background: #f74356;
 }
 </style>
     <div class="full-paralax">
         <div class="child-paralax">
             <div>
-                <h1 class="title is-3 has-text-white">  TROUVEZ VOTRE APPARTEMENT </h1>
+                <h1 class="title is-3 has-text-white">  TROUVEZ VOTRE LOGEMENT </h1>
                 <div class="delimiter"></div>
                  <p class="has-text-white text-info-site has-text-light">
-                    Vous cherchez un appartement à louer ou à vendre ? Immo Gabon est là pour vous.
+                    Vous cherchez un appartement à louer ou à vendre ou en colocatiion ? Kazimo Gabon est là pour vous.
                     Trouvez le style d'appartement qu'il vaut faut et selon votre budget. Go !
                  </p>
                  <br>
@@ -162,7 +194,7 @@ color: #00c4a7
 
                             </div>
                         {% else %}
-                            <div class="back-card" style="background: url(images/home.png) center no-repeat;background-size: contain;background-color: aliceblue;height: 256px;border-radius: 20px 20px 15px 15px;">
+                            <div class="back-card" style="background: url(images/home.png) center no-repeat;background-size: contain;background-color: #fff0fc;height: 256px;border-radius: 20px 20px 15px 15px;">
                             </div>
                         {% endif %}
 
@@ -213,7 +245,7 @@ color: #00c4a7
                 </div>
                 <div class="column is-6 list-items">
                     <i class="fa fa-envelope" aria-hidden="true" ></i>
-                      <span>yahanthony8@gmail.com</span>
+                      <p>yahanthony8@gmail.com</p>
                 </div>
                 <div class="column is-6 list-items">
                      <i class="fas fa-map-marker"></i>
@@ -225,28 +257,30 @@ color: #00c4a7
                 </div>
             </div>
         </div>
-        <div class="column is-6">
-            {{form_start(contactForm)}}
+        <div class="column is-6" ng-controller="boxController">
+            <div class="status" ng-show="succes"></div>
+            {{form_start(contactForm, {attr: {'id': 'formBox'}})}}
            <div class="columns" style="flex-wrap: wrap">
                 <div class="column is-6">
-                    {{form_row(contactForm.Nom)}}
+                    {{form_row(contactForm.Nom, {attr: {'placeholder': 'votre nom','ng-class': "[{'input is-danger': nomBox, 'input': 'true'}]" }})}}
                 </div>
                 <div class="column is-6">
-                    {{form_row(contactForm.Sujet)}}
+                   {{form_row(contactForm.Prenom,  {attr: {'placeholder': 'votre prenom', 'ng-class': "[{'input is-danger': prenomBox, 'input': 'true'}]"}})}}
                 </div>
                 <div class="column is-6">
-                    {{form_row(contactForm.Adresse)}}
+                    {{form_row(contactForm.Email,  {attr: {'placeholder': 'votre adresse mail', 'ng-class': "[{'input is-danger': mailBox, 'input': 'true'}]"}})}}
                 </div>
                 <div class="column is-6">
-                    {{form_row(contactForm.Prenom)}}
+                 {{form_row(contactForm.Sujet,  {attr: {'placeholder': 'votre sujet', 'ng-class': "[{'input is-danger': sujetBox, 'input': 'true'}]"}})}}
+                    
                 </div>
            </div>
            <div class="columns" style="flex-wrap: wrap">
                 <div class="column is-12">
-                         {{form_row(contactForm.Message)}}
+                         {{form_row(contactForm.Message, {attr: {'ng-class': "[{'input is-danger': messageBox, 'input': 'true'}]"}})}}
                 </div>
                 <div class="column is-12">
-                         <button class="btn-contact"> Envoyer le message </button>
+                         <button type="submit" class="button btn-contact" ng-class="[{'is-loading': sending}]" > Envoyer le message </button>
                 </div>
            </div>
             {{form_end(contactForm)}}

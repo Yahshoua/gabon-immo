@@ -15,18 +15,27 @@ use App\Entity\Types;
 use App\Repository\TypesRepository;
 use Cocur\Slugify\Slugify;
 use Twig\Extensions\TextExtension;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class HomeController extends AbstractController
 {
 
     /**
      * @Route("/home", name="home")
      */
-    public function index(AppartementRepository $appart, PhotosRepository $photos, Request $request)
+    public function index(AppartementRepository $appart, PhotosRepository $photos, Request $request, ObjectManager $manager)
     {
         $all = $appart->findBy([], ['id'=>'DESC'], 6);
         $elm = $appart->find(1);
-        $formContact = $this->createForm(GetTouchType::class);
+        $sendbox = new GetTouche();
+        $formContact = $this->createForm(GetTouchType::class, $sendbox);
         $formContact->handleRequest($request);
+        if($formContact->isSubmitted()) {
+            $sendbox->setCreatedAt(new \DateTime());
+            $manager->persist($sendbox);
+            $manager->flush();
+            return new JsonResponse(['form'=> $formContact->getData()], 201);
+        }
         if($request->request->count() >0) {
             $type = $request->request->get('type');
             $category = $request->request->get('category');

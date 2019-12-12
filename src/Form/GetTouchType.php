@@ -26,8 +26,8 @@ class GetTouchType extends AbstractType
                     'class'=> 'input inputwrapper'
                 ]
             ])
-            ->add('Adresse',TextType::class, [
-                'label'=> 'Adresse',
+            ->add('Email',TextType::class, [
+                'label'=> 'votre email',
                 'attr'=> [
                     'class'=> 'input inputwrapper'
                 ]
