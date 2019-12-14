@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Connexion {% endblock %}
+
+{% block body %}
+<style>
+body {
+    background: #e0e0e00d;
+}
+input {
+    width: 70% !important
+}
+.custom {
+    position: relative
+}
+.custom::after {
+    bottom: -15px;
+    height: 6px;
+    width: 21px;
+    content: "";
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    background-color:#f74356;
+}
+.col-connex {
+    padding: 96px;
+        background: #f7435608;
+}
+.col-h1 {
+    padding-bottom: 43px;
+}
+.col-fifth {
+        padding: 47px;
+    background: hsla(354, 92%, 62%, 0.05)
+}
+.col-form {
+        margin: 32px;
+        margin-bottom: 50px !important;
+}
+</style>
+ <form method="post" ng-non-bindable>
+<div class="columns col-form">
+    <div class="column is-three-fifths is-offset-one-fifth col-fifth">
+                <div class="columns col-connex" style="flex-wrap: wrap;">
+                    <div class="column is-12 col-h1">
+                        <h1 class="title custom">Connectez-vous</h1>
+                    </div>
+                    {# {{ dump(app.request) }} #}
+                    {% if error %}
+                    <div class="notification is-danger" style="width: 70%;">
+                        <button class="delete"></button>
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                    <div class="column is-12">
+                        <label for="inputEmail" class="sr-only">Email</label>
+                                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input" placeholder="Email" required autofocus>
+                    </div>
+                    <div class="column is-12">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                                    <input type="password" name="password" id="inputPassword" class="input" placeholder="Password" required>
+                    </div>
+                      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="column is-12">
+                            <button class="button" type="submit" style="background: #f74356;color: #fff">
+                                        Connection
+                            </button>
+                    </div>
+                </div>
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,4 +1,37 @@
 (function(){
+   // Range
+   new JSR(['#jsrMin', '#jsrMax'], {
+    sliders: 2,
+    values: [5, 100],
+    limit: {
+      show: false
+    },
+    min: 5,
+    labels: {
+        minMax: false,
+         formatter: (value) => {
+              return value.toString() + '0 000 FCFA';
+          }
+    },
+    log: 'info'
+});
+     // Range
+   new JSR(['#m2-1', '#m2-2'], {
+    sliders: 2,
+    values: [5, 100],
+    limit: {
+      show: false
+    },
+    min: 5,
+    labels: {
+        minMax: false,
+         formatter: (value) => {
+              return value.toString() + ' m2';
+          }
+    },
+    log: 'info'
+});
+  //fin
     document.addEventListener('DOMContentLoaded', () => {
 // Get all "navbar-burger" elements
 const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -33,6 +66,7 @@ $target.classList.toggle('is-active');
     lightGallery(document.getElementById('lightgallery'));
     $('.viewgal').on('click',function(){
       $("#gal").click()
+      
     })
       // codes pour ajouter et supprimer des photos
     var $newLinkLi = $('.photogrphy')
@@ -91,6 +125,11 @@ $target.classList.toggle('is-active');
       
      var app = angular.module('myapp', ['ngSanitize'])
     app.controller('boxController', function($scope){
+      $scope.plus = true
+      $scope.vueplus = function() {
+        $scope.plus == true ? $scope.plus = false: $scope.plus = true
+        $('.checker').slideToggle()
+      }
         var mailSending = `<div class="notification is-primary">
         <button class="delete"></button>
                 Votre message a été bien envoyé !
@@ -300,7 +339,7 @@ $target.classList.toggle('is-active');
          //formData.append("appartement[imageFile]",  document.getElementById("appartement_imageFile").files[0])
          //formData.append("appartement", $('#form_person_edit').serialize())
          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "{{path('publish') }}");
+          xhr.open("POST", "/publish");
           xhr.addEventListener('load', onRequestComplete, false);
           xhr.upload.addEventListener("load", onUploadComplete, false);
           xhr.upload.addEventListener("progress", onUploadProgress, false);
@@ -329,10 +368,10 @@ $target.classList.toggle('is-active');
       
     //
     var taged = new Array();
-    $('#myType div:first-of-type, .mycat div:first-of-type').css('display', 'grid')
+    $('#myType div:first-of-type, .mycat div:first-of-type, #form_Types div:first-of-type').css('display', 'grid')
     $('.slide-ill').css('height', $('.col-publish').height() + $('.navbar').height() + 'px' )
     $("#appartement_Category").select2()
-    $('#appartement_Types').select2({
+    $('#appartement_Types, #form_Types').select2({
       maximumSelectionLength: 2
     }) 
     toto = null

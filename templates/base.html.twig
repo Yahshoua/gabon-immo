@@ -3,26 +3,27 @@
 <html ng-app="myapp">
      <head>
         <meta charset="UTF-8">
-        <script src="http://127.0.0.1:8000/js/jquery-3.3.1.min.js"></script>
-        <script src="http://127.0.0.1:8000/js/picker.js"></script>
-        <script src="http://127.0.0.1:8000/js/pickerdate.js"></script>
-        <script src="http://127.0.0.1:8000/js/legacy.js"></script>
-        <script src="http://127.0.0.1:8000/js/jQuery.tagify.min.js"></script>
-        <link href="http://127.0.0.1:8000/css/tagify.css" rel="stylesheet">
-        <script src="http://127.0.0.1:8000/js/jquery.tinycarousel.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/jquery-3.3.1.min.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/picker.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/pickerdate.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/legacy.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/jQuery.tagify.min.js"></script>
+        <link href="{{app.request.getSchemeAndHttpHost()}}/css/tagify.css" rel="stylesheet">
+        <link href="{{app.request.getSchemeAndHttpHost()}}/css/main.css" rel="stylesheet">
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/jquery.tinycarousel.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel='stylesheet' href="css/mystyle.css"/>
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-        <script src="http://127.0.0.1:8000/js/select2.js"></script>
-        <script src="http://127.0.0.1:8000/js/angular.js"></script>
-        <script src="http://127.0.0.1:8000/js/angular-sanitize.min.js"></script>
-        <script type="text/javascript" src="http://127.0.0.1:8000/js/lightgallery.js"></script>
-        <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/css/lightgallery.css">
-        <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-thumbnail.js"></script>
-        <script type="text/javascript" src="http://127.0.0.1:8000/js/lg-fullscreen.js"></script>
-        
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/select2.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/angular.js"></script>
+        <script src="{{app.request.getSchemeAndHttpHost()}}/js/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/lightgallery.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{app.request.getSchemeAndHttpHost()}}/css/lightgallery.css">
+        <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/lg-thumbnail.js"></script>
+        <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/lg-fullscreen.js"></script>
+        <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/main.js"></script>
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
@@ -49,7 +50,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="" href="{{ path('home') }}">
-      <img src="http://127.0.0.1:8000/images/home.png" style="width: 50px;height: 50px">
+      <img src="{{app.request.getSchemeAndHttpHost()}}/images/home.png" style="width: 50px;height: 50px">
     </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -82,28 +83,18 @@
           </a>
         </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Pages
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-           Accueil
-          </a>
-          <a class="navbar-item">
-            A propos
-          </a>
-        </div>
-      </div>
+      <a class="navbar-item">
+        Publications
+      </a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <a href="{{path('publish') }}" class="button is-primary">
-            <strong style="font-family: Lato-Bold;">Publier une annonce</strong>
+            <strong>Publier une annonce</strong>
           </a>
-          <a class="button is-light">
+          <a class="button is-light" href="{{path('app_login')}}">
             Se connecter
           </a>
         </div>
@@ -125,13 +116,13 @@
               <div class="columns">
                   <div class="column is-12">
                     <div style="display: flex">
-                      <img src="http://127.0.0.1:8000/images/home.png" width="50px" height="50px">
+                      <img src="{{app.request.getSchemeAndHttpHost()}}/images/home.png" width="50px" height="50px">
                       <span style="color: #fff;line-height: 50px;">by Mitashi Otha {{ "now"|date("Y") }} &copy </span>
                     </div>
                   </div>
               </div>
           </div>
-          <script type="text/javascript" src="http://127.0.0.1:8000/js/app.js"></script>
+          <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/app.js"></script>
         {% endblock %}
     </body>
     

@@ -40,7 +40,7 @@ class AppartementRepository extends ServiceEntityRepository
             ->join(Types::class, 't')
             ->Where('t.id =:type')
             ->andWhere('a.category =:cat')
-            ->andWhere('a.commentaire LIKE :word')
+            ->andWhere('a.commentaire LIKE :word OR a.ville LIKE :word')
             ->setParameter('type', $type)
             ->setParameter('cat', $cat)
             ->setParameter('word', '%'.$word.'%')

@@ -1565,12 +1565,12 @@ a.box:active {
 }
 
 .button:focus, .button.is-focused {
-  border-color: #3273dc;
+  border-color: #fdf4f4;
   color: #fff;
 }
 
 .button:focus:not(:active), .button.is-focused:not(:active) {
-  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+  box-shadow: 0 0 0 0.125em rgb(253, 244, 244)
 }
 
 .button:active, .button.is-active {

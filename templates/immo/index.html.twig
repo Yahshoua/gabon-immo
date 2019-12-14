@@ -61,15 +61,15 @@ body {
         top: 10px;
         right: 0;
         left: 943px;
-        border-radius: 8px 8px 0 0
+        border-radius: 8px 8px 0 0;
+        padding-bottom: 35px;
     }
     .hd-price {
-        background: #f74356;
+        background:#fff;
         text-align: center;
         border-radius: 8px 8px 0 0;
     }
     .hd-price>div:first-of-type {
-        border-bottom: 1px solid #f74356;
     }
      .hd-price div {
         padding: 17px
@@ -83,25 +83,19 @@ body {
         font-size: 16px !important;
          color: hsl(0, 0%, 100%) !important
     }
-    .reserve {
-            line-height: 4rem;
+    .formulaire {
+           padding-bottom: 25px;
     }
-    .reserve input {
-        padding-bottom: 22px;
-        padding-top: 22px;
-        border-radius: 10px;
-    }
+  
     .btn-reserve {
-        width: 100%;
-        padding: 30px;
+        padding: 15px;
         background: #f74356;
         border: navajowhite;
-        border-radius: 0 0 10px 10px;
         color: #fff;
         font-size: 13pt;
     }
     .btn-reserve:hover { 
-        background: #1ee6c9;
+        background:#f74356;
         cursor: pointer
     }
     hr {
@@ -188,15 +182,160 @@ body {
     }
  }
  @media(max-width: 375px) {
-     .choco {
-             width: 100%;
-     }
-     .col-head-immo {
-    height: 199px;
-}
+        .choco {
+                width: 100%;
+        }
+        .col-head-immo {
+        height: 199px;
+    }
  }
+.types {
+        line-height: initial;
+}
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #aaaaaa73 !important;
+}
+.input, .textarea {
+    box-shadow: none !important
+}
+.select select {
+    font-size: 15px;
+}
+
+.plusopt {
+    font-size: 14px;
+    padding-left: 0;
+    color: #f74356;
+    line-height: unset
+}
+.plusopt span{
+    font-size: 14px;
+    padding-left: 0;
+}
+.checker .control {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 29px;
+    margin-bottom: 6px;
+    padding-top: 2px;
+    cursor: pointer;
+    font-size: 15px;
+}
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+.control_indicator {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 0px solid #f74356;
+    border-radius: 0px;
+}
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #cccccc;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #f74356;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #0e6647d;
+}
+.control input:disabled ~ .control_indicator {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 8px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.control-checkbox input:disabled ~ .control_indicator:after {
+    border-color: #7b7b7b;
+}
+.control-checkbox .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3.466rem;
+    height: 3.466rem;
+    margin-left: -17px;
+    margin-top: -18px;
+    background: #f74356;
+    border-radius: 3rem;
+    opacity: 0.6;
+    z-index: 99999;
+    transform: scale(0);
+}
+@keyframes s-ripple {
+    0% {
+        transform: scale(0);
+    }
+    20% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+@keyframes s-ripple-dup {
+   0% {
+       transform: scale(0);
+    }
+   30% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+.control-checkbox input + .control_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+.control-checkbox input:checked + .control_indicator::before {
+    animation-name: s-ripple-dup;
+}
+.viewmore {
+    font-size: 13px;
+    padding-left: 2px;
+}
+.control-checkbox font {
+    font-size: 11px
+}
+.checker {
+    display: none
+}
 </style>
-    <div class="col-head-immo" style="background:url('http://127.0.0.1:8000/images/duplex_house.jpg') center no-repeat;background-size: cover;">
+    <div class="col-head-immo" style="background:url('{{app.request.getSchemeAndHttpHost()}}/images/duplex_house.jpg') center no-repeat;background-size: cover;">
         <div class="coco">
             <div style="width: 80%;padding-left: 1rem;">
                 <h2 class="title has-text-white is-1">  {{ houses.title }} </h2>
@@ -217,13 +356,10 @@ body {
                 <div class="columns" style="flex-wrap: wrap;">
                 <div class="column is-12 col-detail">
                         <div class="choco">
-                            <i class="fas fa-calendar-day" style="color: #f74356;    font-size: 14px;
+                            <i class="fas fa-calendar-day" style="color: #9E9E9E;    font-size: 14px;
     float: left;"></i> &nbsp <p>publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p>
                         </div>
-                        <div class="pain" style="width: 50%">
-                            <i class="fas fa-mobile-alt" style="color: #f74356;font-size: 14px;float: left;"></i> &nbsp <p style="float: left;
-    margin-left: 5px;">{{houses.numero}}</p>
-                        </div>
+                      
                 </div>
                 <div class="column is-12" style="padding-top: 0">
                     {% if houses.image.name %}
@@ -239,17 +375,17 @@ body {
                                     </div>
                         {% endif %}
                         </div>
-                   {# {% if houses.photographies.count >0 %}
+                   {% if houses.photographies.count >0 %}
                    <div class="column is-12">
                         <div id="lightgallery">
                             {% for photo in houses.photographies %}
-                                <a href="../images/appart/{{photo.image.name}}">
-                                    <img id="gal" src="../images/appart/{{photo.image.name}}" style="width:200px;height:120px"/>
+                                <a href="{{app.request.getSchemeAndHttpHost()}}/images/appart/{{photo.image.name}}">
+                                    <img id="gal" src="{{app.request.getSchemeAndHttpHost()}}/images/appart/{{photo.image.name}}" style="width:200px;height:120px"/>
                                 </a>
                             {% endfor %}
                         </div>
                    </div>
-                    {% endif %} #}
+                    {% endif %}
                     <div class="column is-12">
                         <h2 class="title" style="margin: 0">
                             {{houses.prix}}
@@ -270,15 +406,122 @@ body {
             <div class="bloc-reservation">
             <div class="hd-price">
                 <div>
-                    <span class="title" style="color: #fff;font-size: 25px;"> Nous contacter  </span>
+                    <span class="title" style="color: #000;font-size: 25px;"> Recherche avancée  </span>
                 </div>
             </div>
-            <div style="padding: 3ex;padding-bottom: 0;">
-                {{form_start(form2, {'attr': {'class': 'reserve'} } )}}
-                {{ form_widget(form2) }}
-                {{form_end(form2)}}
+            {{form_start(form2, {attr: {'class': 'formulaire'}})}}
+                <div class="columns reserve" style="padding: 3ex;padding-bottom: 0;flex-wrap: wrap">
+                    <div class="column is-12">
+                            {{ form_row(form2.Category) }}
+                    </div>
+                    <div class="column is-12" style="line-height: initial">
+                        {{ form_row(form2.Types) }}
+                    </div>
+                    <div class="column is-12">
+                        <label for="local"> Localisation </label>
+                        <input id="local" class="input" type="texte" minLength="3" placeholder="Ville, quartier...">
+                    </div>
+                    <div  class="column is-12">
+                        <div class="columns">
+                                                <div class="column is-6">
+                                                        <div class="field">
+                                                            <div class="control has-icons-left">
+                                                                <div class="select">
+                                                                <select name="bednumber">
+                                                                    <option selected>Chambres</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">plus</option>
+                                                                </select>
+                                                                </div>
+                                                                <div class="icon is-small is-left">
+                                                                <i class="fas fa-bed"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="column is-6">
+                                                        <div class="field">
+                                                            <div class="control has-icons-left">
+                                                                <div class="select">
+                                                                <select name="bathnumber">
+                                                                    <option selected>Douches</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">plus</option>
+                                                                </select>
+                                                                </div>
+                                                                <div class="icon is-small is-left">
+                                                                <i class="fas fa-bath"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                
+                                            </div>
+
+                    </div>
+                     <div class="column is-12">
+                            <p>Combien de mettre carré ?</p>
+                            <input id="m2-1"  type="range"  min="5" max="100" value="5">
+                            <input id="m2-2"  type="range" min="100" max="100" value="100">
+                    </div>
+                    <div class="column is-12">
+                            <p>Quel est votre budget ?</p>
+                            <input id="jsrMin"  type="range"  min="50" max="100" value="50">
+                            <input id="jsrMax"  type="range" min="100" max="100" value="100">
+                    </div>
+                    <div class="column is-12" ng-controller="boxController">
+                        <span style="display: flex;cursor: pointer" ng-click="vueplus()">
+                        <i class="plusopt"  ng-class="[{'fas fa-plus-circle': plus, 'fas fa-minus-circle': !plus}]">
+                        </i>
+                            <span class="viewmore"> Voir plus d'option </span></span>
+                        <div class="checker" style="padding-top: 13px">
+                            <div> <strong> specifications </strong> </div>
+                            <br>
+                            <label class="control control-checkbox">
+                                <font> Air conditionné </font>
+                                <input name="clime" value="air conditionne climatise" type="checkbox" checked/>
+                                <div class="control_indicator"></div>
+                            </label>
+                            <label class="control control-checkbox">
+                                <font> Parking </font>
+                                <input value="parking" name="parking" type="checkbox"/>
+                                <div class="control_indicator"></div>
+                            </label>
+                            <label class="control control-checkbox">
+                                <font> Etages </font>
+                                <input type="checkbox" name="etage" value="etages" checked/>
+                                <div class="control_indicator"></div>
+                            </label>
+                             <label class="control control-checkbox">
+                                <font> balcon </font>
+                                <input type="checkbox" name="balcon" value="balcon" />
+                                <div class="control_indicator"></div>
+                            </label>
+                             <label class="control control-checkbox">
+                                <font> alarme </font>
+                                <input type="checkbox" name="alarme" value="alarme"/>
+                                <div class="control_indicator"></div>
+                            </label>
+                             <label class="control control-checkbox">
+                                <font> garage </font>
+                                <input type="checkbox" name="garage" value="garage"/>
+                                <div class="control_indicator"></div>
+                            </label>
+                        </div>
+                    </div>
+                    {{form_end(form2)}}
+                </div>
+            {{form_end(form2)}}
+            <div style="text-align: center">
+                <input type="submit" class="btn-reserve" value="Rechercher">
             </div>
-             <input type="submit" class="btn-reserve" value="Reservation instantanée">
+             
         </div>
         {#  #}
     </div>
@@ -468,7 +711,7 @@ body {
                         
                     </div>
                 {% else %}
-                     <div class="card-content" style="background: url('../images/home.png') center no-repeat;background-size: 50%;height: 216px;border-radius: 5px 7px 0 0;">
+                     <div class="card-content" style="background: url('{{app.request.getSchemeAndHttpHost()}}/images/home.png') center no-repeat;background-size: 50%;height: 216px;border-radius: 5px 7px 0 0;">
                         
                     </div>
                 {% endif %}

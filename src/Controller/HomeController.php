@@ -61,6 +61,7 @@ class HomeController extends AbstractController
             'type'=> $type
         ]);
     }
+
     /**
      * @Route("/recherche/{type}/{category}/{key}", name="recherche")
      */
@@ -111,8 +112,6 @@ class HomeController extends AbstractController
                         $cat = 1;
                     break;
                 }
-                dump(intval($types));
-                dump(intval($cat));
         $search = $appart->findByWord(intval($types), intval($cat), $key);
         dump($search);
         return $this->render('home/recherche.html.twig',[

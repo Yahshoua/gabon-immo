@@ -10,6 +10,7 @@
     height: 500px;
     position: relative;
     display: flex;
+    margin-top: 15px;
 }
 .btn-video {
     position: absolute;
@@ -107,12 +108,63 @@ margin-right: 7px;
     .title.is-1 {
             font-size: 2rem;
     }
+    .title.is-2 {
+        font-size: 33px;
+    }
     .text-modern-house p {
         font-size: 12pt;
     }
 }
 .button.is-loading {
     background: #f74356;
+}
+.back-card1 {
+    background-size: cover;
+    height: 256px;
+    border-radius: 20px 20px 15px 15px;
+}
+.back-card2 {
+    background-size: contain;
+    background-color: #fff0fc;
+    height: 256px;
+    border-radius: 20px 20px 15px 15px;
+}
+@keyframes zoom {
+        from {
+            background-size: 120%
+        }
+        to {
+            background-size: 150%
+        }
+    }
+    @keyframes zoom2 {
+        from {
+            background-size: 85%
+        }
+        to {
+            background-size: 95%
+        }
+    }
+    .back-card1:hover {
+             animation-duration: 0.5s;
+            animation-name: zoom;
+            animation-fill-mode: forwards;
+}
+ .back-card2:hover {
+             animation-duration: 0.3s;
+            animation-name: zoom2;
+            animation-fill-mode: forwards;
+}
+.child-content {
+    color: gray
+}
+.imageplus {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    padding-top: 4px;
+    right: 0;
+    padding: 11px;
 }
 </style>
     <div class="full-paralax">
@@ -121,8 +173,8 @@ margin-right: 7px;
                 <h1 class="title is-3 has-text-white">  TROUVEZ VOTRE LOGEMENT </h1>
                 <div class="delimiter"></div>
                  <p class="has-text-white text-info-site has-text-light">
-                    Vous cherchez un appartement à louer ou à vendre ou en colocatiion ? Kazimo Gabon est là pour vous.
-                    Trouvez le style d'appartement qu'il vaut faut et selon votre budget. Go !
+                    Le premier site gratuit des annonces en immobilier au Gabon.
+                    Pour toute Location Vente ou Achat Immobilier Au Gabon, c'est ici!
                  </p>
                  <br>
                  <form name="search" method="POST" action="">
@@ -160,7 +212,7 @@ margin-right: 7px;
                         </div>
                         <div class="column is-3">
                             <div class="control">
-                                    <input class="input" name="key" type="text" placeholder="mot clé..." required>
+                                    <input class="input" name="key" type="text" placeholder="ville, quartier..." required>
                             </div>
 
                         </div>
@@ -176,10 +228,10 @@ margin-right: 7px;
     </div>
     <div class="col-last-publish">
         <div>
-            <h2 class="title is-2">appartement à vendre</h2>
+            <h2 class="title is-2">Dernières publications</h2>
             <div class="delimiter"></div>
             <p class="text-delimiter">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Kazimo est le N°1 de placement immobilier au Gabon. Vendez ou louer vos biens immobiliers, ou encore trouver le logement qui vous convient. Voici les publications des dernieres 24 heures
             </p>
         </div>
        <div class="columns col-list is-narrow-mobile"> 
@@ -187,14 +239,17 @@ margin-right: 7px;
         
             <div class="column is-4">
                 <a href="{{path('immo', {'title': house.slugs, 'id': house.id } )}}">
-                    <div class="cards">
+                    <div class="cards"  style="position: relative">
+                                {% if house.photographies.count > 0 %}
+                                    <i class="far fa-images imageplus"> + {{house.photographies.count}} </i>
+                                {% endif %}
                         {# {% for image in house.photographies %}{% endfor %} #}
                         {% if house.image.name %}
-                            <div class="back-card" style="background: url({{ vich_uploader_asset(house, 'imageFile') }}) center no-repeat;background-size: cover;height: 256px;border-radius: 20px 20px 15px 15px;">
+                            <div class="back-card1" style="background-image: url({{ vich_uploader_asset(house, 'imageFile') }});background-position: center;background-repeat: no-repeat">
 
                             </div>
                         {% else %}
-                            <div class="back-card" style="background: url(images/home.png) center no-repeat;background-size: contain;background-color: #fff0fc;height: 256px;border-radius: 20px 20px 15px 15px;">
+                            <div class="back-card2" style="background-image: url(images/home.png);background-position: center;background-repeat: no-repeat">
                             </div>
                         {% endif %}
 
@@ -208,9 +263,7 @@ margin-right: 7px;
                             </div>
 
                             <div class="child-content">
-                           
                                 <span>{{ house.ville }}</span>
-                          
                                 <span style="font-size: 13px;">{{house.prix}}</span>
                             </div>
                         </div>
@@ -228,15 +281,16 @@ margin-right: 7px;
             <div class="text-modern-house">
                     <h1 class="title is-1"> Maison moderne </h1>
                     <p>
-                        loremConsequat nisi ad ea incididunt voluptate veniam ea velit qui veniam laboris consequat ea qui. Eiusmod consectetur ad ex incididunt. Anim incididunt id aute ipsum aute reprehenderit deserunt
+                        A la recherche d'une maison de luxe ? Vous trouverez un visuel vidéo
+                        en visite guidé vers l'appartement de vos rêves. Visitez la gallerie immobilières des appartement premium.
                     </p>
             </div>
     </div>
     <div class="columns col-contact">
         <div class="column is-6">
             <h2 class="title is-2">Contactez-nous</h2>
-            <p>
-                Proident ex nulla quis dolore incididunt sit proident non ea ex. Pariatur tempor enim consequat enim dolore consequat. Cupidatat minim tempor veniam nisi cillum enim consectetur laborum adipisicing est. Laboris enim aliquip aliqua esse qui amet irure tempor.
+            <p  style="text-align: justify">
+               Envoyez-nous un mail si vous avez des questions specifiques. Voulez-vous mettre votre bien en premier plan sur le site ? Voulez-vous nous proposer des suggesions ? Nous vous répondons en moins de 24 heures.
             </p>
             <div class="columns" style="flex-wrap: wrap;margin-top: 2rem">
                 <div class="column is-6 list-items">

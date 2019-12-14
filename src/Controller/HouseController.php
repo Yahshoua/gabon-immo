@@ -11,6 +11,9 @@ use App\Repository\AppartementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Types;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -26,7 +29,7 @@ class HouseController extends AbstractController
      * @Route("/immo_point/{title}-{id}", name="immo", requirements={"title": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function index($title, $id, Request $request, ObjectManager $manager, AppartementRepository $appartement)
+    public function index($title, $id, Request $request, ObjectManager $manager, AppartementRepository $appartement, Category $category)
     {
         // Publier 1 commentaire
         $comment = new Commentaires();
@@ -50,6 +53,33 @@ class HouseController extends AbstractController
         $form2 = $this->createForm(ReservationType::class, $reservation);
         $form2->handleRequest($request);
         // fin
+        //Recherche avancée
+        $forms = $this->createFormBuilder()
+                ->add('Types', EntityType::class, [
+                    'label'=> 'Quel type ?',
+                    'class'=> Types::class,
+                    'choice_label'=> 'types',
+                    'multiple'=> true,
+                    'attr'=> [
+                        'placeholder'=> 'exemple: je vends',
+                        'class'=> 'input types'
+                    ]
+                ])
+                ->add('Category', EntityType::class, [
+                    'label'=> 'Que cherchez-vous ?',
+                    'class'=> Category::class,
+                    'choice_label'=> 'label',
+                    'attr'=> [
+                        'class'=> 'input'
+                    ]
+                ])
+                ->getForm();
+
+        // fin
+        // Trouver les apparts
+            $category = $category->getAppartement();
+            dump($category);
+        //fin
         //Find By categorie
        $IDAp =  $find->getCategory()->getId();
        $e = $appartement->findByAnnexes($IDAp, $id);
@@ -57,7 +87,7 @@ class HouseController extends AbstractController
         return $this->render('immo/index.html.twig', [
             'houses'=> $find,
             'form'=>  $form->createView(),
-            'form2'=> $form2->createView(),
+            'form2'=> $forms->createView(),
              'annexes'=> $e,
              'count'=> $find->getComments()->count()
         ]);
