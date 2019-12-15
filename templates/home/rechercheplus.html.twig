@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+body {
+        background:#e2e2e236
+}
+.custom {
+    position: relative;
+}
+.custom::after {
+    bottom: -15px;
+    height: 6px;
+    width: 21px;
+    content: "";
+    border-radius: 6px;
+    position: absolute;
+    left: 0;
+    background-color:#f74356;
+}
+.prix {
+    margin-bottom: 0;
+    padding-top: 10px;
+    font-size: 43px;
+    color: #f74356;
+}
+.col-infos {
+    border-radius: 5px;
+    margin-left: -1px;
+    margin-right: 3px;
+    margin-top: 1px;
+    border: 1px solid #ececec;
+    height: 50px
+}
+.pika {
+    line-height: 25px;
+}
+.col {
+        border-right: 1px solid #eaeaea;
+            text-align: center;
+            line-height: 30px
+}
+sup {
+    line-height: initial !important;
+}
+</style>
+<div class="columns" style="flex-wrap: wrap;margin-top: 1%">
+        <div class="column is-12 is-offset-1">
+           <h1 class="title custom"> Recherches avancées </h1>
+        </div>
+            <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+                <div class="columns" style="flex-wrap: wrap;padding: 1rem;background: #fff;border-radius: 8px;height: 400px">
+                        <div class="column is-12" style="display: grid;text-align: center">
+                            <h2 class="title" style="font-size: 25px"> Désolé aucune recherche ne correspond à votre requete </h2>
+
+                        </div>
+                        <div style="text-align: center;width: 100%;">
+                           <a href="{{path('home')}}"><button class="button is-primary is-rounded" style="width: auto">Revenir à la page d'accueil</button></a>
+                            
+                        </div>
+                    </div>
+            </div>
+</div>
+{% endblock %}

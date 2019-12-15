@@ -98,6 +98,22 @@ body {
         background:#f74356;
         cursor: pointer
     }
+    .btn-reserve:focus { 
+        outline: crimson;
+        border: 1px solid #ddd;
+    }
+    @keyframes actives {
+        from {
+                padding: 16px;
+        }
+        to {
+                padding: 15px;
+        }
+    }
+     .btn-reserve:active { 
+        animation-duration: 0.5s;
+        animation-name: actives;
+    }
     hr {
         background-color: #ccc !important;
         height: 1px !important;
@@ -329,10 +345,22 @@ body {
     padding-left: 2px;
 }
 .control-checkbox font {
-    font-size: 11px
+    font-size: 13px
 }
 .checker {
     display: none
+}
+.float-item {
+    float: right
+}
+.col-cat {
+    border-bottom: dashed 1px #ededed;
+    font-family: Lato;
+    line-height: 35px;
+    cursor: pointer
+}
+.parent-bnt:focus {
+    outline: none;
 }
 </style>
     <div class="col-head-immo" style="background:url('{{app.request.getSchemeAndHttpHost()}}/images/duplex_house.jpg') center no-repeat;background-size: cover;">
@@ -409,7 +437,7 @@ body {
                     <span class="title" style="color: #000;font-size: 25px;"> Recherche avancée  </span>
                 </div>
             </div>
-            {{form_start(form2, {attr: {'class': 'formulaire'}})}}
+            {{form_start(form2, {attr: {'class': 'formulaire' }})}}
                 <div class="columns reserve" style="padding: 3ex;padding-bottom: 0;flex-wrap: wrap">
                     <div class="column is-12">
                             {{ form_row(form2.Category) }}
@@ -419,7 +447,7 @@ body {
                     </div>
                     <div class="column is-12">
                         <label for="local"> Localisation </label>
-                        <input id="local" class="input" type="texte" minLength="3" placeholder="Ville, quartier...">
+                        <input id="local" name="locale" class="input" type="texte" minLength="3" placeholder="Ville, quartier...">
                     </div>
                     <div  class="column is-12">
                         <div class="columns">
@@ -428,7 +456,7 @@ body {
                                                             <div class="control has-icons-left">
                                                                 <div class="select">
                                                                 <select name="bednumber">
-                                                                    <option selected>Chambres</option>
+                                                                    <option value="0" selected>Chambres</option>
                                                                     <option value="1">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -447,7 +475,7 @@ body {
                                                             <div class="control has-icons-left">
                                                                 <div class="select">
                                                                 <select name="bathnumber">
-                                                                    <option selected>Douches</option>
+                                                                    <option value="0" selected>Douches</option>
                                                                     <option value="1">1</option>
                                                                     <option value="2">2</option>
                                                                     <option value="3">3</option>
@@ -465,17 +493,17 @@ body {
                                             </div>
 
                     </div>
-                     <div class="column is-12">
+                     <div class="column is-12 m2">
                             <p>Combien de mettre carré ?</p>
-                            <input id="m2-1"  type="range"  min="5" max="100" value="5">
-                            <input id="m2-2"  type="range" min="100" max="100" value="100">
+                            <input id="m2-1" name="mettremin"  type="range"  min="5" max="100" value="5">
+                            <input id="m2-2" name="mettremax"  type="range" min="100" max="100" value="100">
                     </div>
-                    <div class="column is-12">
+                    <div class="column is-12 bud">
                             <p>Quel est votre budget ?</p>
-                            <input id="jsrMin"  type="range"  min="50" max="100" value="50">
-                            <input id="jsrMax"  type="range" min="100" max="100" value="100">
+                            <input id="jsrMin" name="budgetmin" type="range"  min="50" max="100" value="50">
+                            <input id="jsrMax" name="budgetmax"  type="range" min="100" max="100" value="100">
                     </div>
-                    <div class="column is-12" ng-controller="boxController">
+                    <div class="column is-12" ng-controller="rechercheController">
                         <span style="display: flex;cursor: pointer" ng-click="vueplus()">
                         <i class="plusopt"  ng-class="[{'fas fa-plus-circle': plus, 'fas fa-minus-circle': !plus}]">
                         </i>
@@ -485,7 +513,7 @@ body {
                             <br>
                             <label class="control control-checkbox">
                                 <font> Air conditionné </font>
-                                <input name="clime" value="air conditionne climatise" type="checkbox" checked/>
+                                <input name="clime" value="air conditionne climatise" type="checkbox"/>
                                 <div class="control_indicator"></div>
                             </label>
                             <label class="control control-checkbox">
@@ -495,7 +523,7 @@ body {
                             </label>
                             <label class="control control-checkbox">
                                 <font> Etages </font>
-                                <input type="checkbox" name="etage" value="etages" checked/>
+                                <input type="checkbox" name="etage" value="etages"/>
                                 <div class="control_indicator"></div>
                             </label>
                              <label class="control control-checkbox">
@@ -515,11 +543,31 @@ body {
                             </label>
                         </div>
                     </div>
-                    {{form_end(form2)}}
+                    
                 </div>
-            {{form_end(form2)}}
-            <div style="text-align: center">
-                <input type="submit" class="btn-reserve" value="Rechercher">
+                    {{form_end(form2)}}
+            <div style="text-align: center" class="parent-bnt">
+                <input type="submit" class="btn-reserve" value="Rechercher" title="{{title}}" id="{{id}}">
+            </div>
+            <div class="columns" style="padding: 3ex;">
+                    <div class="column is-12">
+                        <div> <strong> Categories </strong> </div>
+                        <br>
+                        {% for arr in arraycat %}
+                        <div class="col-cat"> 
+                            <span> {{arr.name}} </span>
+                            <span class='float-item'>
+                                ({{arr.count}})
+                            </span>
+                        </div>
+                        {% endfor %}
+                        <div class="col-cat"> 
+                            <span> Autres </span>
+                            <span class='float-item'>
+                                ({{autre}})
+                            </span>
+                        </div>
+                    </div>
             </div>
              
         </div>

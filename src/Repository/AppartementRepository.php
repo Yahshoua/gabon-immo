@@ -48,6 +48,31 @@ class AppartementRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
         }
+        public function findBySearch($cat, $local, $bednumber, $bathnumber, $mettremin, $mettremax, $budgetmin, $budgetmax, $type) {
+            $q =$this->createQueryBuilder('a');
+            $q->select('a')
+            ->join(Types::class, 't')
+            ->Where("a.category =:cat")
+            ->orWhere('t.id IN (:type)')
+            ->andWhere('a.chambres = :bednumber')
+            ->andWhere('a.douches = :bathnumber')
+            ->andWhere('a.ville = :local')
+            ->andWhere('a.surface >= :mettremin AND a.surface <= :mettremax')
+            ->andWhere('a.surface >= :mettremin AND a.surface <= :mettremax')
+            ->andWhere('a.montant >= :budgetmin AND a.montant <= :budgetmax')
+            ->setParameter('type', $type)
+            ->setParameter('cat', $cat)
+            ->setParameter('bednumber', $bednumber)
+            ->setParameter('bathnumber', $bathnumber)
+            ->setParameter('mettremin', $mettremin)
+            ->setParameter('mettremax', $mettremax)
+            ->setParameter('budgetmin', $budgetmin)
+            ->setParameter('budgetmax', $budgetmax)
+            ->setParameter('local', $local)
+            ->orderBy('a.id', 'DESC');
+            return $q->getQuery()->getResult();
+            
+        }
     // /**
     //  * @return Appartement[] Returns an array of Appartement objects
     //  */

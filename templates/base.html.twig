@@ -2,7 +2,25 @@
 <!DOCTYPE html>
 <html ng-app="myapp">
      <head>
+     <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T6KR7GL');</script>
+<!-- End Google Tag Manager -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154630076-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154630076-1');
+</script>
+
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="{{app.request.getSchemeAndHttpHost()}}/js/jquery-3.3.1.min.js"></script>
         <script src="{{app.request.getSchemeAndHttpHost()}}/js/picker.js"></script>
         <script src="{{app.request.getSchemeAndHttpHost()}}/js/pickerdate.js"></script>
@@ -28,11 +46,8 @@
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}KAZIMO{% endblock %}</title>
         <style>
-          .title {
-            font-family: 'ubuntu' 
-          }
            .footer .title, .footer p,  .footer span, .footer i {
             color: #fff; 
           }
@@ -46,7 +61,12 @@
         </style>
     </head>
     <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6KR7GL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- navBar -->
+     <script data-ad-client="ca-pub-3903515149085859" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="" href="{{ path('home') }}">
@@ -113,11 +133,11 @@
         {% block body %}{% endblock %}
         {% block footer %}
           <div class="footer">
-              <div class="columns">
+              <div class="columns" style="background: silver;padding: 8px;">
                   <div class="column is-12">
                     <div style="display: flex">
                       <img src="{{app.request.getSchemeAndHttpHost()}}/images/home.png" width="50px" height="50px">
-                      <span style="color: #fff;line-height: 50px;">by Mitashi Otha {{ "now"|date("Y") }} &copy </span>
+                      <span style="color: #fff;line-height: 50px;"> by Mitashi Otha {{ "now"|date("Y") }} &copy </span>
                     </div>
                   </div>
               </div>

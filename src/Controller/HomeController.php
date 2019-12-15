@@ -21,7 +21,7 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/home", name="home")
+     * @Route("/accueil", name="home")
      */
     public function index(AppartementRepository $appart, PhotosRepository $photos, Request $request, ObjectManager $manager)
     {
@@ -45,7 +45,7 @@ class HomeController extends AbstractController
         // $p=$elm->getTypes()->toArray();
         // dump($elm->getTypes()->toArray()[0]->getTypes());
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name' => 'homeController',
             'houses'=>$all,
             'contactForm'=> $formContact->createView()
         ]);
@@ -61,7 +61,12 @@ class HomeController extends AbstractController
             'type'=> $type
         ]);
     }
-
+    /**
+     * @Route("/recherches-avancees", name="rechercheplus")
+     */
+    public function advance(TypesRepository $types, AppartementRepository $appart) {
+        return $this->render('home/rechercheplus.html.twig');
+    }
     /**
      * @Route("/recherche/{type}/{category}/{key}", name="recherche")
      */

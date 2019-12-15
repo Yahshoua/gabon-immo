@@ -22,14 +22,7 @@ body, button, input, select, textarea {
     background-size: cover;
     display: flex
 }
-@font-face {
-    font-family: 'Lato';
-    src: url('http://127.0.0.1:8000/fonts/Lato-Light.ttf');
-}
-@font-face {
-    font-family: 'Lato-Bold';
-    src: url('http://127.0.0.1:8000/fonts/Lato-Bold.ttf');
-}
+
 body, button, input, select, textarea {
     font-family: 'Lato'
 }
@@ -48,7 +41,7 @@ body, button, input, select, textarea {
     margin-bottom: 0;
 }
 .delimiter {
-    background: url('http://127.0.0.1:8000/images/delimiter2.png') center no-repeat;
+    background: url('../images/delimiter2.png') center no-repeat;
     height: 76px;
     background-size: 20%;
 }

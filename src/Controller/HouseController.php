@@ -15,6 +15,7 @@ use App\Entity\Types;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HouseController extends AbstractController
@@ -29,12 +30,11 @@ class HouseController extends AbstractController
      * @Route("/immo_point/{title}-{id}", name="immo", requirements={"title": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function index($title, $id, Request $request, ObjectManager $manager, AppartementRepository $appartement, Category $category)
+    public function index($title, $id, Request $request, ObjectManager $manager, AppartementRepository $appartement)
     {
         // Publier 1 commentaire
         $comment = new Commentaires();
         $find= $this->appart->find($id);
-        dump($find);
         $form = $this->createForm(FormCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,6 +48,31 @@ class HouseController extends AbstractController
                 'commentaires'=> $comments
             ]);
         }
+        // recherche avancée (travail incomplet sorry :( ))
+            if($request->request->count() >0) {
+              //  $req = $request->request();
+              $cat = intval($request->request->get('form')['Category']);
+              $bednumber = intval($request->request->get("bednumber"));
+              $bathnumber = intval($request->request->get("bathnumber"));
+              $mettremin = intval($request->request->get("mettremin"));
+              $mettremax = intval($request->request->get("mettremax"));
+              $budgetmin = intval($request->request->get("budgetmin"));
+              $budgetmax = intval($request->request->get("budgetmax"));
+              $ville = intval($request->request->get("locale"));
+              $type = [];
+                if(isset($request->request->get('form')['Types'])) {
+                    $type1 = $request->request->get('form')['Types'][0];
+                    for($i=0;$i<count($request->request->get('form')['Types']);$i++) {
+                        $type[] = $request->request->get('form')['Types'][$i];
+                    }
+                }
+                dump($type);
+              $res = $appartement->findBySearch($cat,$ville, $bednumber, $bathnumber, $mettremin,$mettremax, $budgetmin, $budgetmax, $type);
+              dump($request->request);
+              dump($res);
+              return $this->redirectToRoute('rechercheplus');
+            }
+        //fin
         // Publier une reservation
         $reservation = new Reservation();
         $form2 = $this->createForm(ReservationType::class, $reservation);
@@ -76,20 +101,30 @@ class HouseController extends AbstractController
                 ->getForm();
 
         // fin
-        // Trouver les apparts
-            $category = $category->getAppartement();
-            dump($category);
+        // Trouver les categorie
+        $arraycat = [
+            ['name'=> 'terrain', 'count'=> count($appartement->findBy(['category'=> 1]))],
+            ['name'=>'fond de commerce', 'count'=> count($appartement->findBy(['category'=> 2]))],
+            ['name'=>'villa','count'=> count($appartement->findBy(['category'=> 3]))],
+            ['name'=>'Studio', 'count'=> count($appartement->findBy(['category'=> 4]))],
+            ['name'=>'Maison', 'count'=> count($appartement->findBy(['category'=> 5]))],
+            ['name'=>'local commercial', 'count'=> count($appartement->findBy(['category'=> 6]))]
+        ];
+        $autre = intval(count($appartement->findBy(['category'=> 7])) + count($appartement->findBy(['category'=> 8]))+count($appartement->findBy(['category'=> 9]))+ count($appartement->findBy(['category'=> 10]))+count($appartement->findBy(['category'=> 11]))+count($appartement->findBy(['category'=> 12]))+count($appartement->findBy(['category'=> 13])));
         //fin
         //Find By categorie
        $IDAp =  $find->getCategory()->getId();
        $e = $appartement->findByAnnexes($IDAp, $id);
-       dump($e);
         return $this->render('immo/index.html.twig', [
             'houses'=> $find,
             'form'=>  $form->createView(),
             'form2'=> $forms->createView(),
              'annexes'=> $e,
-             'count'=> $find->getComments()->count()
+             'count'=> $find->getComments()->count(),
+             'arraycat'=> $arraycat,
+             'autre'=> $autre,
+             'title'=> $title,
+             'id'=> $id
         ]);
     }
 }

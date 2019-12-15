@@ -1,6 +1,6 @@
 (function(){
    // Range
-   new JSR(['#jsrMin', '#jsrMax'], {
+  range =  new JSR(['#jsrMin', '#jsrMax'], {
     sliders: 2,
     values: [5, 100],
     limit: {
@@ -15,8 +15,9 @@
     },
     log: 'info'
 });
+
      // Range
-   new JSR(['#m2-1', '#m2-2'], {
+   range2 = new JSR(['#m2-1', '#m2-2'], {
     sliders: 2,
     values: [5, 100],
     limit: {
@@ -124,19 +125,63 @@ $target.classList.toggle('is-active');
      $("#toto").html($collectionHolder)
       
      var app = angular.module('myapp', ['ngSanitize'])
-    app.controller('boxController', function($scope){
+     app.controller('rechercheController', function($scope){
       $scope.plus = true
       $scope.vueplus = function() {
         $scope.plus == true ? $scope.plus = false: $scope.plus = true
         $('.checker').slideToggle()
       }
+      // Range des budgets
+      budgetmin = 50
+      budgetmax = 1000
+      mettremin = '5'
+      mettremax = '100'
+      range.addEventListener('update', (input, value) => {
+        var id = $(input).attr('id')
+        if(id == 'jsrMin') {
+          budgetmin = value
+      } else if(id == 'jsrMax') {
+        budgetmax = value
+      }
+        
+        
+      });
+      // Range des Mettres carres
+      range2.addEventListener('update', (input, value) => {
+        var id = $(input).attr('id')
+        if(id =='m2-1') {
+          mettremin = value
+          } else if (id=='m2-2') {
+            mettremax = value
+          }
+      });
+      $('.btn-reserve').on('click', function() {
+        var title = $(this).attr('title')
+        var id = $(this).attr('id')
+         var f = $('.formulaire').serializeArray()
+         f[3].value = mettremin
+         f[4].value = mettremax
+         f[5].value = budgetmin*1000
+         f[6].value = budgetmax*1000
+         $.ajax({
+           type: 'POST',
+           url: '/immo_point/'+title+'-'+id,
+           data: f
+         }).done(function(data) {
+          window.location.href = "/recherches-avancees";
+         }).fail(function(err){
+           console.log('err ', err)
+         })
+         console.log(f)
+      })
+     })
+    .controller('boxController', function($scope){
         var mailSending = `<div class="notification is-primary">
         <button class="delete"></button>
                 Votre message a été bien envoyé !
       </div>`
       
-        $('.btn-contact').on('click', function($e){
-            $e.preventDefault()
+        $(document).on('click', '.btn-contact', function($e){
             if($('#get_touch_Nom').val()=='') {
                 $scope.nomBox = true
                 $scope.$apply()
