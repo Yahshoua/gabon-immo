@@ -19,6 +19,14 @@ class AppartementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Appartement::class);
     }
+    ///**
+    // * @return Appartement[]
+   //  */
+
+   public function findByAppart()
+   {
+    return $this->findAll();
+   }
         // /**
     //  * @return Appartement[] Returns an array of Appartement objects
     //  */

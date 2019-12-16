@@ -144,7 +144,8 @@ body {
      padding: 0
  }
 .choco {
-        width: 40%;display: flex
+        width: 30%;
+        display: flex
     }
  .choco p {
      margin-left: 5px;
@@ -362,11 +363,24 @@ body {
 .parent-bnt:focus {
     outline: none;
 }
+.btnshare {
+    padding: 2px;
+    background: blue;
+    color: #fff;
+    font-size: 13px;
+    padding-left: 7px;
+    padding-right: 5px;
+    border-radius: 2px;
+    cursor: pointer
+}
+.btnshare:hover {
+        background: darkblue;
+}
 </style>
     <div class="col-head-immo" style="background:url('{{app.request.getSchemeAndHttpHost()}}/images/duplex_house.jpg') center no-repeat;background-size: cover;">
         <div class="coco">
             <div style="width: 80%;padding-left: 1rem;">
-                <h2 class="title has-text-white is-1">  {{ houses.title }} </h2>
+                <h2 class="title has-text-white is-1" id={{'titre'~houses.id}}>  {{ houses.title }} </h2>
             </div>
             <div style="width: 20%;margin-top: 17px;">
                 <a class="button is-light viewgal">
@@ -382,22 +396,26 @@ body {
     <div class="columns" style="flex-wrap: wrap;position: relative">
         <div class="column is-7 scale" style="margin-left: 11rem;">
                 <div class="columns" style="flex-wrap: wrap;">
-                <div class="column is-12 col-detail">
+                <div class="column is-12 col-detail" ng-controller="socialController">
                         <div class="choco">
                             <i class="fas fa-calendar-day" style="color: #9E9E9E;    font-size: 14px;
     float: left;"></i> &nbsp <p>publié le {{houses.createdAt|date("d/m/Y", "Europe/Paris")}}, {{houses.createdAt|ago}}</p>
                         </div>
-                      
+                      <div>
+                          <div class="btnshare" id="{{ houses.id }}" data-url="{{app.request.requestUri()}}">
+                            <i class="fab fa-facebook-square">&nbsp</i> <span>Partager</span>
+                          </div>
+                      </div>
                 </div>
                 <div class="column is-12" style="padding-top: 0">
                     {% if houses.image.name %}
                             
-                                <div style="background:url('{{ vich_uploader_asset(houses, 'imageFile') }}') center no-repeat;background-size: cover;height: 400px;width: 93%">
+                                <div class="background" data-url="{{ vich_uploader_asset(houses, 'imageFile') }}" style="background:url('{{ vich_uploader_asset(houses, 'imageFile') }}') center no-repeat;background-size: cover;height: 400px;width: 93%">
 
                                 </div>
                         {% else %}
                                     
-                                        <div style="background: url('../images/home.png') center no-repeat;background-size: 37%;background-color: #69696961;height: 400px;width: 93%">
+                                        <div class="background" data-url="{{app.request.getSchemeAndHttpHost()}}/images/home.png" style="background: url('{{app.request.getSchemeAndHttpHost()}}/images/home.png') center no-repeat;background-size: 37%;background-color: #69696961;height: 400px;width: 93%">
 
                                         
                                     </div>
@@ -423,7 +441,7 @@ body {
                     </div>
                 </div>
               
-            <p style="margin-right: 4rem;text-align: justify;">
+            <p style="margin-right: 4rem;text-align: justify;" id="desc">
                 {{houses.commentaire}}
             </p>
         </div>

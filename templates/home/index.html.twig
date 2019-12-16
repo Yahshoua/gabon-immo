@@ -295,7 +295,7 @@ margin-right: 7px;
             <div class="columns" style="flex-wrap: wrap;margin-top: 2rem">
                 <div class="column is-6 list-items">
                     <i class="fas fa-phone-volume"  aria-hidden="true"></i>
-                    <span>+212 06 38 02 51 33</span>         
+                    <span>+33 6 05 77 69 44</span>         
                 </div>
                 <div class="column is-6 list-items">
                     <i class="fa fa-envelope" aria-hidden="true" ></i>
@@ -303,11 +303,11 @@ margin-right: 7px;
                 </div>
                 <div class="column is-6 list-items">
                      <i class="fas fa-map-marker"></i>
-                    <span>Boulevard Ghandi</span>
+                    <span>2 Rue Galvany</span>
                 </div>
                 <div class="column is-6 list-items">
                     <i class="far fa-clock"></i>
-                     <span>	Mon-Sat: 9:00 - 18:00</span>
+                     <span>	{{ "now"|localizeddate('none', 'none', app.request.locale, "Europe/Paris", "cccc d .MM. Y") }} </span>
                 </div>
             </div>
         </div>

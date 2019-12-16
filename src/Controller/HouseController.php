@@ -43,7 +43,7 @@ class HouseController extends AbstractController
             $manager->persist($comment);
             $manager->flush();
             $comments = $find->getComments()->last();
-            dump($comments);
+            // dump($comments);
             return $this->render('immo/commentaires.html.twig',[
                 'commentaires'=> $comments
             ]);
@@ -68,8 +68,8 @@ class HouseController extends AbstractController
                 }
                 dump($type);
               $res = $appartement->findBySearch($cat,$ville, $bednumber, $bathnumber, $mettremin,$mettremax, $budgetmin, $budgetmax, $type);
-              dump($request->request);
-              dump($res);
+             // dump($request->request);
+             // dump($res);
               return $this->redirectToRoute('rechercheplus');
             }
         //fin

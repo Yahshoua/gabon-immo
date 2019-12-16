@@ -17,6 +17,7 @@ use Cocur\Slugify\Slugify;
 use Twig\Extensions\TextExtension;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Knp\Component\Pager\PaginatorInterface;
 class HomeController extends AbstractController
 {
 
@@ -55,7 +56,7 @@ class HomeController extends AbstractController
      */
     public function allow($type, TypesRepository $types, AppartementRepository $appart) {
         $locationTypes = $types->findBy(['types'=> $type]);
-        dump($locationTypes[0]);
+       // dump($locationTypes[0]);
         return $this->render('home/location.html.twig',[
             'houses'=> $locationTypes[0],
             'type'=> $type
@@ -66,6 +67,16 @@ class HomeController extends AbstractController
      */
     public function advance(TypesRepository $types, AppartementRepository $appart) {
         return $this->render('home/rechercheplus.html.twig');
+    }
+      /**
+     * @Route("/toutes-les-publications", name="publication")
+     */
+    public function publications(AppartementRepository $appart, PaginatorInterface $paginator, Request $request) {
+        $req = $appart->findByAppart();
+        $houses = $paginator->paginate($req, $request->query->getInt('page', 1), 7);
+        return $this->render('home/publications.html.twig', [
+            'houses'=>$houses
+        ]);
     }
     /**
      * @Route("/recherche/{type}/{category}/{key}", name="recherche")
@@ -118,7 +129,7 @@ class HomeController extends AbstractController
                     break;
                 }
         $search = $appart->findByWord(intval($types), intval($cat), $key);
-        dump($search);
+       // dump($search);
         return $this->render('home/recherche.html.twig',[
             'houses'=> $search,
             'type'=> $type

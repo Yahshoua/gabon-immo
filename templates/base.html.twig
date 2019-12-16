@@ -42,6 +42,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/lg-thumbnail.js"></script>
         <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/lg-fullscreen.js"></script>
         <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/main.js"></script>
+        <meta name="description" content="Premier site web de Freelance au Maroc">
+        <link rel="icon" type="image/x-icon" href="{{app.request.getSchemeAndHttpHost()}}/images/favicon.png">
+        <meta property="og:title" content="Premier site web gratuit d'annonce en immobilier au Gabon">
+      <meta property="og:description" content="Locations, ventes immobiliers, colocations, gratuit sur Kazimo, la plateforme n°1 au Gabon en immobilier">
+        <meta property="og:image" content="{{app.request.getSchemeAndHttpHost()}}/images/kazimo.png">
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
@@ -61,12 +66,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </style>
     </head>
     <body>
+   
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6KR7GL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
     <!-- navBar -->
-     <script data-ad-client="ca-pub-3903515149085859" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="" href="{{ path('home') }}">
@@ -103,7 +108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
         </div>
       </div>
-      <a class="navbar-item">
+      <a class="navbar-item" href="{{path('publication')}}">
         Publications
       </a>
     </div>
@@ -143,6 +148,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
           </div>
           <script type="text/javascript" src="{{app.request.getSchemeAndHttpHost()}}/js/app.js"></script>
+          
         {% endblock %}
     </body>
     

@@ -44,10 +44,22 @@ body {
 sup {
     line-height: initial !important;
 }
-.second-col {
-    padding-right: 15%;
-    margin-top: 1%;
+.pagination {
+    width: fit-content !important
 }
+@media screen and (min-width: 769px), print{
+    .pagination-next {
+    order: 3 !important;
+}
+}
+@media screen and (min-width: 769px), print {
+.pagination-previous {
+    order: 1 !important;
+}
+}
+ .second-col {
+     padding-right: 15%;margin-top: 1%;
+ }
  @media(max-width: 768px){
      .col-infos {
          display: flex
@@ -60,15 +72,14 @@ sup {
          padding-right: 0
      }
  }
+ .pagination-link.is-current {
+    background-color: #f74356 !important;
+    border-color: #f74356 !important;
+}
 </style>
 <div class="columns" style="flex-wrap: wrap;margin-top: 1%">
         <div class="column is-12 is-offset-1">
-           <h1 class="title custom"> Biens 
-            {% if type == 'location' %}
-            à louer 
-            {% else %}
-                en vente 
-            {% endif %}
+           <h1 class="title custom"> Publications 
             </h1>
         </div>
         {% if houses is empty %}
@@ -131,6 +142,12 @@ sup {
            </div>
         </div>
     {% endfor %}
+    
+        <div class="column is-12 is-offset-1" style="padding-right: 15%;margin-top: 1%;">
+            <div class="navigation">
+                {{ knp_pagination_render(houses) }}
+            </div>
+        </div>
 {% endif %}
 </div>
 {% endblock %}

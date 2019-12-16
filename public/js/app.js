@@ -1,4 +1,19 @@
 (function(){
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '447752026125000',
+      xfbml            : true,
+      version          : 'v2.5'
+    });
+    FB.AppEvents.logPageView();
+  };
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
    // Range
   range =  new JSR(['#jsrMin', '#jsrMax'], {
     sliders: 2,
@@ -125,7 +140,38 @@ $target.classList.toggle('is-active');
      $("#toto").html($collectionHolder)
       
      var app = angular.module('myapp', ['ngSanitize'])
-     app.controller('rechercheController', function($scope){
+     app.controller('socialController', function($scope){
+          // Dynamically gather and set the FB share data.
+          $('.btnshare').on('click', function(){
+            var id = $(this).attr('id')
+            var titre = $('#titre'+id).html()
+            var description = $('#desc').html()
+            var photo = $('.background').attr('data-url')
+            var url = 'https://kazimo.ga'+$(this).attr('data-url')
+            var FBDesc      = description;
+            var FBTitle     = titre;
+            var FBLink      = url;
+            var FBPic       = 'https://kazimo.ga'+photo;
+            console.log('desc: '+FBDesc, 'titre ='+titre, 'url= '+url, 'photo= '+FBPic)
+            // Open FB share popup
+            FB.ui({
+              method: 'share_open_graph',
+              action_type: 'og.likes',
+                action_properties: JSON.stringify({
+                    object: {
+                        'og:url': FBLink,
+                        'og:title': FBTitle,
+                        'og:description': FBDesc,
+                        'og:image': FBPic
+                    }
+                })
+            },
+            function (response) {
+              console.log(response)
+            });
+          })
+     })
+     .controller('rechercheController', function($scope){
       $scope.plus = true
       $scope.vueplus = function() {
         $scope.plus == true ? $scope.plus = false: $scope.plus = true
